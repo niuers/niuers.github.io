@@ -1,16 +1,17 @@
 ---
 permalink: /favorites/
-title: "Favorite Links"
+title: "Favorites"
 ---
 
-# Websites
+## Websites
 * [Hacker News][hacker-news]
 * [Stackoverflow][stackoverflow]
 * [High Scalability][high-scalability]
 
-# Blogs
+## Blogs
 
 
 [hacker-news]: https://news.ycombinator.com/
 [stackoverflow]: https://stackoverflow.com/
 [high-scalability]: http://highscalability.com/
+
