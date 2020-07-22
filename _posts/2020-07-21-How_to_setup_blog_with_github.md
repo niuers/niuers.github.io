@@ -27,6 +27,11 @@ Here are the steps I used to setup this blog:
 1. Check-in your github page repository to github.com. Wait a few minutes, your webiste should be ready at: your-user-name.github.io.
 1. Now you have a blog!
 
+Once you have created your blog, you can make changes in '_config.yml' file to config your name, github account, and the title, descriptions, etc. for your blog.
+
+If you want to add a static webpage, just make a copy of the 'about.md' in the '_pages' directory and add the new page into 'navigation.yml' file.
+
+Note, to post in your blog, add file under '_post' directory. Make sure the file name follows convention of "YYYY-MM-DD-title_of_post.md", where "YYYY-MM-DD" is the year-month-date, e.g. 2020-07-21. The 'title_of_post' can be anything you choose for your title. 
 
 [github-pages]: https://pages.github.com/
 [jekyll]: https://jekyllrb.com/
