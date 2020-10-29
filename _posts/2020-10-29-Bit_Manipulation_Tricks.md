@@ -42,4 +42,7 @@ tags:
    ```
 
 Resources:
-* [Two Complement Integers by Ben Eater]: https://youtu.be/4qH4unVtJkE
+* [Two Complement Integers by Ben Eater][Two-Complement-Integers]
+
+
+[Two-Complement-Integers]: https://youtu.be/4qH4unVtJkE
