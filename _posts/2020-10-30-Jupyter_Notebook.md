@@ -8,8 +8,6 @@ tags:
   - programming
 ---
 
-<div class="cell markdown">
-
 #### Problem VII.1.1
 
 For the original function, \(F=ReLU(x)+ReLU(y)+ReLU(z)\), we have 8
@@ -504,4 +502,3 @@ so we have \(\frac{\partial{w_i}}{\partial{a_k}} = v_{k+i}\)
 ``` python
 ```
 
-</div>
