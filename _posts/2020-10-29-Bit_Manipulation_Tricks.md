@@ -41,6 +41,11 @@ tags:
    a = a^b  # a^b^a = b
    ```
 
+7. Isolate the right most 1-bit
+    * `-x = ~x + 1`: get negative `x`
+    * `x & (-x)`: keeps only the right most 1-bit
+
+
 Resources:
 * [Two Complement Integers by Ben Eater][Two-Complement-Integers]
 
