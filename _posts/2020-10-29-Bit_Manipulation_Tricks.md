@@ -51,7 +51,7 @@ tags:
 
 8. Sum of two binary numbers without using addition
   * `XOR` gives the sum without carry: `a^b`
-  * `AND` and shift left by 1 gives the carry: ` (a&b)<<1`
+  * `AND` and shift left by 1 gives the carry: `(a&b)<<1`
 
 Resources:
 * [Two Complement Integers by Ben Eater][Two-Complement-Integers]
