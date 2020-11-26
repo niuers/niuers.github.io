@@ -46,6 +46,13 @@ tags:
     * `x & (-x)`: keeps only the right most 1-bit
 
 
+
+    h<sub>&theta;</sub>(x) = &theta;<sub>o</sub> x + &theta;<sub>1</sub>x
+
+8. Sum of two binary numbers without using addition
+  * `XOR` gives the sum without carry: `a^b`
+  * `AND` and shift left by 1 gives the carry: ` (a&b)<<1`
+
 Resources:
 * [Two Complement Integers by Ben Eater][Two-Complement-Integers]
 
