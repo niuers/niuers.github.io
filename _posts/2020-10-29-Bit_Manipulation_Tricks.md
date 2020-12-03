@@ -8,9 +8,11 @@ tags:
   - programming
 ---
 
-1. For any number `n`, doing a bit-wise `AND` of `n` and `n-1` flips the least significant 1-bit in `n` to `0`.
-    * The least significant 1-bit in `n` always corresponds to a 0-bit in `n-1`. So `n & n - 1` always flips the least significant 1-bit in `n` to `0`, and leaves all other bits the same.
-    * For example, `12 (1100)` & `11 (1011)` = `8(1000)`. The least significant 1-bit (at `2^2` position) in `12` has flipped to `0`.
+1. How to set the rightmost `1-bit` (and all the lower bits as well) to `0`:
+    1. `x & (x-1)`
+    2. For any number `n`, doing a bit-wise `AND` of `n` and `n-1` flips the least significant (rightmost) `1-bit` in `n` to `0`.
+        * The least significant `1-bit` in `n` always corresponds to the rightmost `0-bit` in `n-1`. So `n & n - 1` always flips the least significant `1-bit` in `n` to `0`, sets all the lower bits to `0` and leaves all other higher bits the same.
+        * For example, `12 (1100)` & `11 (1011)` = `8(1000)`. The least significant 1-bit (at `2^2` position) in `12` has flipped to `0`.
 
 2. Use `&` to check if a bit is `1` or `0`.
     ```
@@ -41,10 +43,13 @@ tags:
    a = a^b  # a^b^a = b
    ```
 
-7. Isolate the right most 1-bit
-    * `-x = ~x + 1`: get negative `x`
-    * `x & (-x)`: keeps only the right most 1-bit
-
+7. How to isolate the rightmost 1-bit and set all the other bits to `0`
+    1. `-x = ~x + 1`: get the negative of `x` by negating `x` and add `1`. 
+        * This is due to "two's complement". 
+        * Adding `1` sets the rightmost `0-bit` in `~x` to `1` and set all the lower bits to zero.
+        * The rightmost `0-bit` in `~x` is the rightmost `1-bit` in `x`
+    2. `x & (-x)`: keep only the rightmost 1-bit 
+        * `x` and `-x` only have one bit in common: the rightmost `1-bit`
 
 
     h<sub>&theta;</sub>(x) = &theta;<sub>o</sub> x + &theta;<sub>1</sub>x
