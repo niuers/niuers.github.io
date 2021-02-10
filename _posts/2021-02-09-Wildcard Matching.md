@@ -22,6 +22,8 @@ tags:
 
     6. I think dynamic programming might help here. So I tried to work out how to use dynamic programming. 
         * I designed a 2-dimensional dynamic table, where `dp[i][j]` is a tuple of bools, e.g. `(True, False)`. The first bool represents whether the pattern `p[:i]` can totally match string `s[:j]`. The second bool says that if there exists any `k for k <=j` such that `p[:i]` can totally match `s[:k]`, then this bool is `True`, otherwise it's `False`.
+            * You can get an idea of the dimension of the dynamic table by looking at the cache keys in recursive solution (top-down DP). They usually have the same dimension.
+            * After reading the solution, we probably don't need use two booleans here, one should be enough.
         * To deal with empty string case, I added extra column in both pattern and string dimensions, so the `dp[0][:]` actually means whether an empty pattern can represent string `s[:j]`, whereas `dp[:][0]` represents whether some pattern `p[:i]` can match an empty string.
         * Once we have the table, it's not that hard to figure out the condition on how to update `dp[i][j]` given previous values.
         * It's clear that in the case current pattern is `*`, if I want to avoid looping through all possible matches, I need the second boolean parameter to record whether it's possible to match using any of previous characters in the string.
@@ -46,9 +48,11 @@ tags:
 
 5. Problem Type
     * A match problem between two things.
-    * [String searching algorithm][String_searching] and [KMP algorithm][KMP]
+    * [String searching/matching(haystack and needle) algorithm][String_searching] and [KMP algorithm][KMP]
 
 6. Similar Problems
+    * Quote : Every DP solution comes from a Brute force solution that repeats some computations many times. The difference between the two is that DP doesn't repeat a work it had done before.
+
 
 7. Template
 
