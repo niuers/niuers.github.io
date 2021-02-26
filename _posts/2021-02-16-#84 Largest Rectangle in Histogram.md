@@ -1,5 +1,5 @@
 ---
-title: "84. Largest Rectangle in Histogram"
+title: "Largest Rectangle in Histogram (LC84)"
 date: 2021-02-16
 categories:
   - blog

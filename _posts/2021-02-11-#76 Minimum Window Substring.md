@@ -1,5 +1,5 @@
 ---
-title: "76. Minimum Window Substring"
+title: "Minimum Window Substring (LC76)"
 date: 2021-02-11
 categories:
   - blog
