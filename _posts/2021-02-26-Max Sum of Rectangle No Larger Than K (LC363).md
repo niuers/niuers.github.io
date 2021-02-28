@@ -44,7 +44,7 @@ tags:
     * Maximum subarray problem
 
 6. Similar Problems
-
+  1. [Some interesting python performance overview][Python Performance]
 
 
 7. Template
@@ -60,3 +60,4 @@ Resources:
 [2D Kadane Algorithm]: https://youtu.be/yCQN096CwWM
 [1D Kadane Algorithm]: https://en.wikipedia.org/wiki/Maximum_subarray_problem
 [SortedSet]: http://www.grantjenks.com/docs/sortedcontainers/sortedset.html
+[Python Performance]: http://www.grantjenks.com/docs/sortedcontainers/performance-scale.html
