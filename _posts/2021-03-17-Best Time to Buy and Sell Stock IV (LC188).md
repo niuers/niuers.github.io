@@ -23,7 +23,8 @@ tags:
     4. The above recursive method definitely costs a lot of time (factorial!). So I thought about other methods:
         * I tried to build a table by combining the prices with number of transactions. 
             * I somehow couldn't find the transition function. I don't know why.
-            * After I read some dicussions, I realized that some other people use this table to find out the solution. 
+            * After I read some dicussions, I realized that some other people use this table to find out the solution.
+            * I implemented this in the next day, it still got TLE, it turns out that I need save the intermediate results in the table to avoid `O(n^2)k)` time complexity. 
         * I tried to work both forward and backward, couldn't figure out the transition function here.
     5. I implemented the recursive solution. Through trial and error, I realized that for each date, I have to try such recursive thing to find the maximum profits. Clearly, I am getting to TLE.
     6. I realized that when we sell, we only sell at the peaks. So I thought it might help if we only do such recursive calls in all available peaks (as compared to all elements).
