@@ -10,6 +10,16 @@ tags:
 ---
 
 1. [The module `heapq` in Python standard library][Python heapq Heap Queue Algorithm] provides an implementation of the min heap queue, also known as priority queue algorithm. 
+    ```
+    Usage:
+    heap = []            # creates an empty heap
+    heappush(heap, item) # pushes a new item on the heap
+    item = heappop(heap) # pops the smallest item from the heap
+    item = heap[0]       # smallest item on the heap without popping it
+    heapify(x)           # transforms list into a heap, in-place, in linear time
+    item = heapreplace(heap, item) # pops and returns smallest item, and adds
+                                # new item; the heap size is unchanged
+    ```
 
 2. Push an item onto the heap:
     * `heappush`: `O(log(n))`
@@ -68,7 +78,7 @@ tags:
 
 9. Heap sort is `O(nlog(n))`
 
-
+10. `nlargest() and nsmallest()`: `O(n+klog(k,2))`
 
 
 
