@@ -9,7 +9,7 @@ tags:
 ---
 
 1. How to set the rightmost `1-bit` (and all the lower bits as well) to `0`:
-    1. `x & (x-1)`
+    1. `n & (n-1)`
     2. For any number `n`, doing a bit-wise `AND` of `n` and `n-1` flips the least significant (rightmost) `1-bit` in `n` to `0`.
         * The least significant `1-bit` in `n` always corresponds to the rightmost `0-bit` in `n-1`. So `n & n - 1` always flips the least significant `1-bit` in `n` to `0`, sets all the lower bits to `0` and leaves all other higher bits the same.
         * For example, `12 (1100)` & `11 (1011)` = `8(1000)`. The least significant 1-bit (at `2^2` position) in `12` has flipped to `0`.
@@ -25,14 +25,16 @@ tags:
     mask = 4  #0100
     n = 11 #1011
     n & mask = 0  # n has 0 at 2^2
-    ``` 
+    ```
 
 3. `n/2 = n >> 1` and `n%2 = n & 1`, `2n = n << 1`
 
 4. XOR (Exclusive OR)
-    * `a^0 = a`
-    * `a^a = 0`
-    * `a^b^b = a`
+    * XOR could be used to detect the bit which appears odd number of times: 1, 3, 5, etc.
+      * `a^0 = a` #appear once
+      * `a^a = 0` #appear twice
+      * `a^a^a = a` #appear three times
+    * `a^b^b = a` 
 
 5. `~x & x = 0`
 
