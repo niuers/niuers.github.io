@@ -57,3 +57,21 @@ tags:
   a.reverse()  #returns None, reverse the list in-place
   b = a[::-1]  #returns a new list
   ```
+
+6. Don't use mutable type as default parameter value in Python
+  ```  
+  class A:
+      def __init__(self, links={}):
+          self.links = links
+
+  a = A()
+  a.links['member'] = 'yes'
+  b = A()
+  print(a.links, b.links)
+  >>> {'member': 'yes'} {'member': 'yes'}
+  ```
+
+  You can see that instances `a` and `b` have the same member `links`, which is wrong.
+  The mutable types are: list, dictionary, set and user-defined classes etc.
+  This is not a problem for immutable types, e.g. integer, float, tuple, string, range etc. 
+
