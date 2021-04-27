@@ -9,13 +9,15 @@ tags:
   - heap queue
 ---
 
-1. [The module `heapq` in Python standard library][Python heapq Heap Queue Algorithm] provides an implementation of the min heap queue, also known as priority queue algorithm. 
+1. [The module `heapq` in Python standard library][Python heapq Heap Queue Algorithm] provides an implementation of the **min heap queue**, also known as priority queue algorithm. 
     ```
     Usage:
     heap = []            # creates an empty heap
     heappush(heap, item) # pushes a new item on the heap
     item = heappop(heap) # pops the smallest item from the heap
+    #Note. Don't use the list's pop() function, i.e. heap.pop() here, it will return the items from last to beginning, not neccesarrily in order.
     item = heap[0]       # smallest item on the heap without popping it
+    #Note. there's NO guarantee that the elements after heap[0] are ordered, only that heap[0] is the smallest item
     heapify(x)           # transforms list into a heap, in-place, in linear time
     item = heapreplace(heap, item) # pops and returns smallest item, and adds
                                 # new item; the heap size is unchanged
@@ -80,7 +82,29 @@ tags:
 
 10. `nlargest() and nsmallest()`: `O(n+klog(k,2))`
 
+11. Apply a custom comparison function to the items in the priority queue
+```
+# Use a class and overwrite the __lt__() function
 
+class Node:
+    def __init__(self, word, freq):
+        self.word = word
+        self.freq = freq
+    
+    def __repr__(self):
+        return f"({self.word, self.freq})"
+    def __lt__(self, other):
+        if self.freq < other.freq:
+            return True
+        elif self.freq > other.freq:
+            return False
+        
+        return self.word >= other.word
+
+hq = []
+for w, f in word_freq.items():
+    heappush(hq, Node(word, freq))        
+```
 
 
 
