@@ -75,3 +75,19 @@ tags:
   The mutable types are: list, dictionary, set and user-defined classes etc.
   This is not a problem for immutable types, e.g. integer, float, tuple, string, range etc. 
 
+7. Python `split()` needs a separator to work properly
+```
+a = '12345'
+m = [int(k) for k in a.split()]
+print(m) # print out [12345]
+# Not the [1,2,3,4,5] as you have thought before
+```
+
+8. Unpack Python tuple/list
+```
+m = (5,3)
+x, y = m
+
+m = [5,3,2]
+x,y,z = m
+```

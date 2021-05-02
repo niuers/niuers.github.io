@@ -14,6 +14,10 @@ tags:
     1. Python Source Code for OrderedDict[Python OrderedDict Source]
 
 2. deque
+    1. Initialize
+    `dq = deque([(0,0)])` # Initialize the deque with 1 tuple element
+    2. dequeuing: `popleft()`
+    3. enqueuing: `append()`, append to the right
 
 3. defaultdict
 
