@@ -7,12 +7,16 @@ tags:
   - algorithm
   - leetcode
   - binary search
+  - summary
 ---
 
-1. `bisect_left`:
+1. `bisect_left(a, x, lo=0, hi=len(a))`:
+    1. If `x` is already present in `a`, the insertion point will be before (**to the left of**) any existing entries. The return value is suitable for use as the first parameter to `list.insert()` assuming that `a` is already sorted.
+    2. The returned insertion point `i` partitions the array `a` into two halves so that `all(val < x for val in a[lo:i])` for the left side and `all(val >= x for val in a[i:hi])` for the right side.
 
 
-2. `bisect_right`:
+
+2. `bisect_right(a, x, lo=0, hi=len(a))`:
 
 3. Different solutions
 
@@ -25,14 +29,6 @@ tags:
 
 7. Template
 
-8. I understand the solution, but HOW do I think to GET there myself?
-    1. Where could you improve?
-        * I should've written the DFS cleaner. This might be a candidate for template.
-    2. What questions should I ask myself so that I push myself closer to the solution? 
-    3. What conclusions did I reach that I dropped some idea for the other?
-        * For dynamic programming, I need find sub-optimal problems. But this doesn't work here.
-    4. How can I reach this conclusion faster ?
-    
 
 
 

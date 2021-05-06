@@ -91,3 +91,65 @@ x, y = m
 m = [5,3,2]
 x,y,z = m
 ```
+
+9. Compute the quotient and remainder for an integer
+    * For integers, the result is the same as `(a // b, a % b)`.
+```
+#quotient, remainder = divmod(dividend, divisor)
+divmod(11,3)  # (3,2)
+divmod(-11,3) # (-4,1)
+```
+
+10. `//` floor division
+    * It rounds down to the nearest integer. (although a float is returned when used with floats)
+```
+print(3//2)       # 1
+print(-3//2)      # -2
+print(2.0//-3)    #-1.0
+print(-3.0//2)    #-2.0
+```
+
+11. Local and non-local variables in Python functions
+```
+def outer():
+    const_var = 5
+    nonconst_var = 8
+    print(f"Original values: const_var = {const_var}, nonconst_var={nonconst_var}")
+    arr = [1]
+    def helper():
+        # Following `nonlocal` declaration is needed to avoid Error, 
+        # UnboundLocalError: local variable 'nonconst_var' referenced before assignment  `nonconst_var += const_var`
+        # This is because `nonconst_var` is modified in the inner() function
+        # This is not needed for `const_var` which is not modified
+
+        nonlocal nonconst_var
+        nonconst_var += const_var
+        arr.append(const_var)
+        arr.append(nonconst_var)
+        print(f"const_var = {const_var}, nonconst_var={nonconst_var}")
+
+        # However, notice, nonlocal is not needed for container types, i.e. list, set, dict etc.
+        print(arr)
+        return const_var, nonconst_var
+    
+    helper()
+    
+outer()     
+
+# Output
+>> Original values: const_var = 5, nonconst_var=8
+>> const_var = 5, nonconst_var=13
+>> [1, 5, 13]
+```
+
+12. Python Set Operations
+```
+C = A | B # Union
+C = A.union(y)
+C = A & B # Intersection
+C = A.intersection(B)	
+C = A - B # Difference
+C = A.difference(B)
+C = A ^ B # Symmetric difference
+C = A.symmetric_difference(B)	
+```
