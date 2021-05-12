@@ -153,3 +153,27 @@ C = A.difference(B)
 C = A ^ B # Symmetric difference
 C = A.symmetric_difference(B)	
 ```
+
+13. Python array slicing can go out of bounds: If the bounds in slice are out of the range, it returns empty list or string.
+```
+word = [1,2,3,4,5] #'abcde'
+print(word[:0]) # []
+print(word[4:]) # 5
+print(word[9:]) # []
+```
+
+14. Check if the string is digit:
+```
+str.isdigit()
+#Return True if all characters in the string are digits and there is at least one character, False otherwise.
+
+
+```
+
+15. Return the indexes of sorted list
+```
+s = [2, 3, 1, 4, 5, 3]
+sorted(range(len(s)), key=lambda k: s[k])
+>>> [2, 0, 1, 5, 3, 4]
+
+```

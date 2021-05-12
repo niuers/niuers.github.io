@@ -15,7 +15,10 @@ tags:
     3. [Build Binary Expression Tree From Infix Expression (LC1597)][LC1597]:
 
 
-2. How did I or Other people get the solution? 
+2. How to realize that a problem is NOT a dynamic programming problem? 
+    1. [One way to realize that it isn't dynamic programming][LC1631. Path With Minimum Effort] is to notice that the hiker can go in all four directions. This means that a dp algorithm would need to look into subproblems that haven't been solved yet.
+
+
 
 3. Different solutions
 
@@ -38,4 +41,4 @@ tags:
 
 
 
-[LC1597]: https://leetcode.com/problems/build-binary-expression-tree-from-infix-expression/
+[LC1631. Path With Minimum Effort]: https://leetcode.com/problems/path-with-minimum-effort/solution/

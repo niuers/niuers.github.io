@@ -43,12 +43,29 @@ tags:
     3. Remove an item from `defaultdict` or `dict`
         1. Use `del d[key]`: Remove `d[key]` from `d`. Raises a `KeyError` if key is not in the map.
         2. Use `d.pop(key[, default])`: If `key` is in the dictionary, remove it and return its value, else return `default`. If `default` is not given and key is not in the dictionary, a `KeyError` is raised.
-    4. It's okay to use `None` as key
+    4. It's okay to use `None` or empty string `''` as key
 
 
 4. `bisect_left()` and `bisect_right()`
 
+5. `itertools`
 
+6. `set`/`dict`: Can't add/remove items into/from a `set`/`dict` while iterating on it
+```
+a = set([1,2,3])
+for i in a:
+    a.add(i+9) # RuntimeError: Set changed size during iteration
+    a.remove(i) # RuntimeError: Set changed size during iteration
+
+# Similarly we have RuntimeError for dict
+a = {1:'a', 2:'b'}
+for i, v in a.items():
+    a['3']='c'
+    del a[1]    
+```
+
+7. `heappush` and `heappop`
+    1. `O(log n)` push and `O(log n)` pop.
 
 [Python OrderedDict Source]: https://github.com/python/cpython/blob/226a012d1cd61f42ecd3056c554922f359a1a35d/Objects/odictobject.c
 [RealPython Defaultdict]: https://realpython.com/python-defaultdict/#diving-deeper-into-defaultdict

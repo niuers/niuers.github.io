@@ -16,18 +16,10 @@ tags:
 
 
 
-2. `bisect_right(a, x, lo=0, hi=len(a))`:
+2. `bisect_right(a, x, lo=0, hi=len(a))` and `bisect(a, x, lo=0, hi=len(a))`:
+    1. It returns an insertion point which comes after (to the right of) any existing entries of `x` in `a`.
 
-3. Different solutions
 
-
-4. Mistakes
-
-5. Problem Type
-    
-6. Similar Problems
-
-7. Template
 
 
 
