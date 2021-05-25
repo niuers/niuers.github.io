@@ -25,6 +25,15 @@ tags:
     mask = 4  #0100
     n = 11 #1011
     n & mask = 0  # n has 0 at 2^2
+
+    # In general:
+    num & (1<<k): get num's k-th bit
+
+    # Set the k-th bit to 1
+    num | (1<<k)
+
+    # Unset the k-th bit to 0
+    num &= ~(1 << k)
     ```
 
 3. `n/2 = n >> 1` and `n%2 = n & 1`, `2n = n << 1`

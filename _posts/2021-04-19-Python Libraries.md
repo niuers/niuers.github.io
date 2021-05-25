@@ -10,6 +10,13 @@ tags:
 
 1. OrderedDict:
     1. Python Source Code for OrderedDict: [Python OrderedDict Source]
+    2. The OrderedDict is all about recording insertion order. If any other order is of interest, then another structure (like an in-memory dbm) is likely a better fit.
+    3. [What are the trade-offs of the possible underlying data structures?][Python OrderedDict Tradeoff]
+        * Keeping a sorted list of keys is fast for all operations except `__delitem__()` which becomes an `O(n)` exercise. This data structure leads to very simple code and little wasted space.
+        * Keeping a separate dictionary to record insertion sequence numbers makes the code a little bit more complex. All of the basic operations are `O(1)` but the constant factor is increased for `__setitem__()` and `__delitem__()` meaning that every use case will have to pay for this speedup (since all buildup go through `__setitem__`). Also, the first traveral incurs a one-time `O(n log n)` sorting cost. The storage costs are double that for the sorted-list-of-keys approach.
+        * A version written in C could use a linked list. The code would be more complex than the other two approaches but it would conserve space and would keep the same big-oh performance as regular dictionaries. It is the fastest and most space efficient.
+
+
 
 2. deque
     1. Initialize
@@ -47,7 +54,7 @@ tags:
 
 
 4. `bisect_left(a, x, lo=0, hi=len(a))` and `bisect_right(a, x, lo=0, hi=len(a))`
-
+    1. Note they only work with **ascending** ordered list, not **descending** ordered list
 5. `itertools`
 
 6. `set`/`dict`: 
@@ -87,3 +94,4 @@ for i, v in a.items():
 
 [Python OrderedDict Source]: https://github.com/python/cpython/blob/226a012d1cd61f42ecd3056c554922f359a1a35d/Objects/odictobject.c
 [RealPython Defaultdict]: https://realpython.com/python-defaultdict/#diving-deeper-into-defaultdict
+[Python OrderedDict Tradeoff]: https://www.python.org/dev/peps/pep-0372/
