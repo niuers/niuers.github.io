@@ -22,6 +22,7 @@ tags:
 
 3. Provide a cumstom comparison function
     * Write a comparison function that returns either negative, 0, or positive number, with `(item1, item2)` as arguments
+        * A comparison function is any callable that accept two arguments, compares them, and returns a negative number for less-than, zero for equality, or a positive number for greater-than. 
     * Use `functools.cmp_to_key` to change it to key
 
     ```
@@ -45,8 +46,11 @@ tags:
     a.sort(key=cmp_to_key(comp_build))
     ```
 
-
-
+4. Overwrite `__lt__`
+```
+    def __lt__(self, other):
+        return self.dist < other.dist
+```
 
 
 

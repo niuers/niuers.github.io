@@ -9,7 +9,7 @@ tags:
 ---
 
 1. OrderedDict:
-    1. Python Source Code for OrderedDict[Python OrderedDict Source]
+    1. Python Source Code for OrderedDict: [Python OrderedDict Source]
 
 2. deque
     1. Initialize
@@ -46,11 +46,13 @@ tags:
     4. It's okay to use `None` or empty string `''` as key
 
 
-4. `bisect_left()` and `bisect_right()`
+4. `bisect_left(a, x, lo=0, hi=len(a))` and `bisect_right(a, x, lo=0, hi=len(a))`
 
 5. `itertools`
 
-6. `set`/`dict`: Can't add/remove items into/from a `set`/`dict` while iterating on it
+6. `set`/`dict`: 
+    1. Can't add/remove items into/from a `set`/`dict` while iterating on it
+
 ```
 a = set([1,2,3])
 for i in a:
@@ -64,8 +66,24 @@ for i, v in a.items():
     del a[1]    
 ```
 
+    2. `frozenset`: 
+    Frozen set is just an immutable version of a Python set object. While elements of a set can be modified at any time, elements of the frozen set remain the same after creation. Due to this, frozen sets can be used as keys in Dictionary or as elements of another set. But like sets, it is not ordered (the elements can be set at any index).
+
+    3. `set` operations time complexity
+        * union `s|t`: `O(len(s)+len(t))`
+        * Intersection `s&t`: `O(min(len(s), len(t)))`
+        * `x in s`: `O(1)` in average, but `O(n)` in worst case
+        * Difference `s-t`: `O(len(s))`
+
+
 7. `heappush` and `heappop`
     1. `O(log n)` push and `O(log n)` pop.
+
+
+8. Python `TreeMap`
+
+
+
 
 [Python OrderedDict Source]: https://github.com/python/cpython/blob/226a012d1cd61f42ecd3056c554922f359a1a35d/Objects/odictobject.c
 [RealPython Defaultdict]: https://realpython.com/python-defaultdict/#diving-deeper-into-defaultdict

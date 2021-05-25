@@ -81,6 +81,11 @@ a = '12345'
 m = [int(k) for k in a.split()]
 print(m) # print out [12345]
 # Not the [1,2,3,4,5] as you have thought before
+
+
+#Note there's an empty string at index 0 and the end
+a = '/leet/code/'
+print(a.split('/')) # ['', 'leet', 'code', '']
 ```
 
 8. Unpack Python tuple/list
@@ -175,5 +180,39 @@ str.isdigit()
 s = [2, 3, 1, 4, 5, 3]
 sorted(range(len(s)), key=lambda k: s[k])
 >>> [2, 0, 1, 5, 3, 4]
+```
+
+16. `break` a loop:
 
 ```
+for i in range(5):
+    print(f"i = {i}")
+    j = i
+    #while j < 5:        
+    for j in range(i, 5):
+        if j >= 3:
+            break    #This will break the inner-for/inner-while loop only
+        else:
+            j += 1
+        print(f"--- j = {j}")
+```
+
+17. Create a counter
+```
+import itertools as it
+# odds = it.count(start=1, step=2)
+
+index = {}
+count = itertools.count()
+for p in pair:
+    if p not in index:
+        index[p] = next(count)            
+```            
+
+18. Upack a list of list
+```
+workers = [[1,2],[2,3],[5,3],[3,7], [0,3]]
+for wi, (wx, wy) in enumerate(workers): #Have to use () or [] here to upack
+    print(wi, wx, wy)
+```
+

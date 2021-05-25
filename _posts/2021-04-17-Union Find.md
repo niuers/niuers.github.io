@@ -15,4 +15,3 @@ tags:
     2. Path Compression: weighted quick-union with path compression.
         * To implement path compression, we just add another loop to find() that sets the id[] entry corresponding to each node encountered along the way to link directly to the root.
         * Amortized to almost but not quite constant time for find(), union().
-
