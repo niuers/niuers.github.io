@@ -19,7 +19,8 @@ tags:
 2. `bisect_right(a, x, lo=0, hi=len(a))` and `bisect(a, x, lo=0, hi=len(a))`:
     1. It returns an insertion point which comes after (to the right of) any existing entries of `x` in `a`.
 
-
+3. Binary Search Template
+    1. [Powerful Ultimate Binary Search Template in Python][Powerful Ultimate Binary Search Template]
 
 
 
@@ -29,3 +30,4 @@ Resources:
 
 
 [LeetCode Link]: https://leetcode.com/problems/making-a-large-island/
+[Powerful Ultimate Binary Search Template]: https://leetcode.com/problems/koko-eating-bananas/discuss/769702/Python-Clear-explanation-Powerful-Ultimate-Binary-Search-Template.-Solved-many-problems.

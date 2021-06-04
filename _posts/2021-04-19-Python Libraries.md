@@ -55,7 +55,19 @@ tags:
 
 4. `bisect_left(a, x, lo=0, hi=len(a))` and `bisect_right(a, x, lo=0, hi=len(a))`
     1. Note they only work with **ascending** ordered list, not **descending** ordered list
+
 5. `itertools`
+    1. `itertools.groupby(iterable, key=None)`
+    ```
+    # [k for k, g in groupby('AAAABBBCCDAABBB')] --> A B C D A B
+    # [list(g) for k, g in groupby('AAAABBBCCD')] --> AAAA BBB CC D
+    groups = []
+    uniquekeys = []
+    data = sorted(data, key=keyfunc)
+    for k, g in groupby(data, keyfunc):
+        groups.append(list(g))      # Store group iterator as a list
+        uniquekeys.append(k)    
+    ```
 
 6. `set`/`dict`: 
     1. Can't add/remove items into/from a `set`/`dict` while iterating on it
@@ -82,6 +94,9 @@ for i, v in a.items():
         * `x in s`: `O(1)` in average, but `O(n)` in worst case
         * Difference `s-t`: `O(len(s))`
 
+    4. `setdefault(key[, default])`
+        If `key` is in the dictionary, return its value. If not, insert key with a value of `default` and return `default`. `default` defaults to `None`.
+
 
 7. `heappush` and `heappop`
     1. `O(log n)` push and `O(log n)` pop.
@@ -89,7 +104,19 @@ for i, v in a.items():
 
 8. Python `TreeMap`
 
+9. Greatest common divisor (GCD)
+```
+import math
+math.gcd(12,8) # returns 4
+```
 
+10. Python list
+    1. The `index()` method returns the position at the first occurrence of the specified value.
+    ```
+    a = [0,3,2,1,5]
+    a.index(1)  #returns 3
+    ```
+    2. 
 
 
 [Python OrderedDict Source]: https://github.com/python/cpython/blob/226a012d1cd61f42ecd3056c554922f359a1a35d/Objects/odictobject.c

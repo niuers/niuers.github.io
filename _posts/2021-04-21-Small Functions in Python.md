@@ -18,7 +18,12 @@ tags:
     ```
     a = list(range(1,10,2))
     s = ''.join(map(str, a))
+
+    #Note, join requires all elements to be string type, you can't join with numerical or None
+    a = ['abc', None, 'efg']
+    print(''.join(a)) # TypeError: sequence item 1: expected str instance, NoneType found
     ```
+
 3. Binary/Hexidecimal numbers
     1. Convert integer to binary/hexidecimal string
         * `bin(255)` # print out `0b11111111`
@@ -82,6 +87,7 @@ m = [int(k) for k in a.split()]
 print(m) # print out [12345]
 # Not the [1,2,3,4,5] as you have thought before
 
+print(a.split(',')) #print out ['12345']
 
 #Note there's an empty string at index 0 and the end
 a = '/leet/code/'
