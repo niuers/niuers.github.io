@@ -69,6 +69,35 @@ tags:
         uniquekeys.append(k)    
     ```
 
+    2. combinatoric iterators
+        * `product(*iterables, repeat=1)`: Cartesian product of input iterables. Roughly equivalent to nested for-loops in a generator expression. For example, product(A, B) returns the same as ((x,y) for x in A for y in B).
+
+        To compute the product of an iterable with itself, specify the number of repetitions with the optional repeat keyword argument. For example, product(A, repeat=4) means the same as product(A, A, A, A)
+
+        ```
+        # product('ABCD', 'xy') --> Ax Ay Bx By Cx Cy Dx Dy
+        # product(range(2), repeat=3) --> 000 001 010 011 100 101 110 111
+        ```
+
+
+        * `permutations(iterable, r=None)`: Return successive `r` length permutations of elements in the iterable.
+        ```
+        # permutations('ABCD', 2) --> AB AC AD BA BC BD CA CB CD DA DB DC
+        # permutations(range(3)) --> 012 021 102 120 201 210
+        ```
+        * `combinations(iterable, r)`: Return r length subsequences of elements from the input iterable. The combination tuples are emitted in lexicographic ordering according to the order of the input iterable. So, if the input iterable is sorted, the combination tuples will be produced in sorted order.
+        ```
+        # combinations('ABCD', 2) --> AB AC AD BC BD CD
+        # combinations(range(4), 3) --> 012 013 023 123
+
+        ```
+        * `combinations_with_replacement(iterable, r)`: Return r length subsequences of elements from the input iterable allowing individual elements to be repeated more than once.
+
+        ```
+         # combinations_with_replacement('ABC', 2) --> AA AB AC BB BC CC
+        ```
+    
+
 6. `set`/`dict`: 
     1. Can't add/remove items into/from a `set`/`dict` while iterating on it
 
@@ -96,7 +125,10 @@ for i, v in a.items():
 
     4. `setdefault(key[, default])`
         If `key` is in the dictionary, return its value. If not, insert key with a value of `default` and return `default`. `default` defaults to `None`.
-
+    5. Get an element from a `set`
+    ```
+    item = next(iter(s))
+    ```
 
 7. `heappush` and `heappop`
     1. `O(log n)` push and `O(log n)` pop.
@@ -116,8 +148,17 @@ math.gcd(12,8) # returns 4
     a = [0,3,2,1,5]
     a.index(1)  #returns 3
     ```
-    2. 
+    2. Remove elements in the middle of a list
+    ```
+    a = [0,3,2,1,5]
+    a[1:3] = []
+    print(a) # [0, 1, 5], elements a[1], a[2] are removed
 
+    ```
+
+11. `random`
+    1. `random.choice(seq)`: Return a random element from the non-empty sequence `seq`. If `seq` is empty, raises `IndexError`
+    2. 
 
 [Python OrderedDict Source]: https://github.com/python/cpython/blob/226a012d1cd61f42ecd3056c554922f359a1a35d/Objects/odictobject.c
 [RealPython Defaultdict]: https://realpython.com/python-defaultdict/#diving-deeper-into-defaultdict
