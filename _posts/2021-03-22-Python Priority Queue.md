@@ -19,7 +19,7 @@ tags:
     item = heap[0]       # smallest item on the heap without popping it
     #Note. there's NO guarantee that the elements after heap[0] are ordered, only that heap[0] is the smallest item
     
-    # heapify transforms list into a heap, in-place, in linear time. In the resulting heap the smallest element gets pushed to the index position 0. But rest of the data elements are not necessarily sorted.
+    # heapify transforms list into a heap, in-place, in linear time O(n). In the resulting heap the smallest element gets pushed to the index position 0. But rest of the data elements are not necessarily sorted.
     heapify(x)           
     
     item = heapreplace(heap, item) # pops and returns smallest item, and adds

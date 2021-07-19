@@ -80,7 +80,7 @@ tags:
   The mutable types are: list, dictionary, set and user-defined classes etc.
   This is not a problem for immutable types, e.g. integer, float, tuple, string, range etc. 
 
-7. Python `split()` needs a separator to work properly
+7. Python `split(sep=None, maxsplit=-1)` needs a separator to work properly
 ```
 a = '12345'
 m = [int(k) for k in a.split()]
@@ -92,6 +92,15 @@ print(a.split(',')) #print out ['12345']
 #Note there's an empty string at index 0 and the end
 a = '/leet/code/'
 print(a.split('/')) # ['', 'leet', 'code', '']
+
+#Note the size is 2 here
+a = '/'
+print(a.split('/)) # ['', '']
+
+# Splitting an empty string with a specified separator returns ['']
+
+If `sep` is not specified or is `None`, a different splitting algorithm is applied: runs of consecutive whitespace are regarded as a single separator, and the result will contain no empty strings at the start or end if the string has leading or trailing whitespace. Consequently, splitting an empty string or a string consisting of just whitespace with a `None` separator returns `[]`.
+
 ```
 
 8. Unpack Python tuple/list
@@ -222,3 +231,15 @@ for wi, (wx, wy) in enumerate(workers): #Have to use () or [] here to upack
     print(wi, wx, wy)
 ```
 
+19. Convert a number to string and a string to number
+```
+input = 12345
+iter = map(int, str(input))
+#'map' object is not subscriptable
+# print(iter[0], iter[3]) #This throws Error
+
+#Better to use this:
+arr = list(str(input))
+output = int("".join(arr))
+
+```

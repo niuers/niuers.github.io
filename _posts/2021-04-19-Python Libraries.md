@@ -130,8 +130,21 @@ for i, v in a.items():
     item = next(iter(s))
     ```
 
+    6. `set`/`dict` lookup is `O(1)` amortized time, but it can be `O(n)` in worst-case if collision happens.
+
 7. `heappush` and `heappop`
     1. `O(log n)` push and `O(log n)` pop.
+    2. Use class to specify the comparison among items, e.g. create a max-heap on `str` type instead of the default min-heap
+
+    ```
+    pq = []
+    heapq.heappush(pq, MyMaxClass(input))
+
+    class MyMaxClass(str):
+        def __init__(self, s): self.s = s
+        def __lt__(self,other): return self.s > other.s
+        def __eq__(self,other): return self.s == other.s
+    ```
 
 
 8. Python `TreeMap`

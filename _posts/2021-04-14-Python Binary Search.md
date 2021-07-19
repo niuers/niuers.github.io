@@ -19,7 +19,12 @@ tags:
 2. `bisect_right(a, x, lo=0, hi=len(a))` and `bisect(a, x, lo=0, hi=len(a))`:
     1. It returns an insertion point which comes after (to the right of) any existing entries of `x` in `a`.
 
-3. Binary Search Template
+
+3. [lee215 quote][lee215 comment in LC1231. Divide Chocolate]Quick tip: if you have `left = mid`, use `left + right + 1`. It's possible to use left <= right. But if you follow my all posts, I almost always use left < right.
+
+
+
+4. Binary Search Template
     1. [Powerful Ultimate Binary Search Template in Python][Powerful Ultimate Binary Search Template]
 
 
@@ -31,3 +36,4 @@ Resources:
 
 [LeetCode Link]: https://leetcode.com/problems/making-a-large-island/
 [Powerful Ultimate Binary Search Template]: https://leetcode.com/problems/koko-eating-bananas/discuss/769702/Python-Clear-explanation-Powerful-Ultimate-Binary-Search-Template.-Solved-many-problems.
+[lee215 comment in LC1231. Divide Chocolate]: https://leetcode.com/problems/divide-chocolate/discuss/408503/JavaC++Python-Binary-Search/367637
