@@ -49,6 +49,31 @@ tags:
     2. Related Problems
         * [LC11. Container With Most Water][LC11. Container With Most Water]
 
+
+5. Rotated array problems
+    1. If a sorted array is shifted, if you take the middle, always one side will be sorted. Take the recursion according to that rule.
+    2. Find a target in a rotated array with unique numbers
+        1. Solution 1 (Two passes): Find the index of the smallest number first, then use it to choose which part of the array to search for the target. `O(logn)`
+        2. Solution 2 (One pass): `O(logn)`.
+            * For each pivot (mid) element, we need to check if it's in a non-rotated part or not by comparing it with the first element. If it's larger than the first element, then [left, pivot] is non-rotated, else, [pivot, right] is non-rotated.
+            * Then we compare target with pivot to move the end points
+        3. Solution 3: `O(logn)`. When the mid value and target value are not on the same non-rotated part, we set the mid value to INF or -INF correspondingly and reset the end points accordingly. 
+    3. Find a target in a rotated array that may contain duplicate numbers
+        1. The catch: if `arr[mid]` equals `arr[start]`, then we know that `arr[mid]` might belong to both First and Second parts and hence we cannot find the relative position of target from it.
+        2. In this case, we have no option but to move to next search space iteratively (e.g. increase left by 1). Hence, there are certain search spaces that allow a binary search, and some search spaces that don't.
+            * Alternatively, we can call the function recursively on two parts of the array separately.
+        3. Time complexity : `O(N)` worst case, `O(logN)` best case, where `N` is the length of the input array.
+    4. Related problems
+        * [LC 33. Search in Rotated Sorted Array][LC 33. Search in Rotated Sorted Array]
+        * [LC81. Search in Rotated Sorted Array II][LC81. Search in Rotated Sorted Array II]
+        * [LC153. Find Minimum in Rotated Sorted Array][LC153. Find Minimum in Rotated Sorted Array]
+
+
+6. Find First and Last Position of Element in Sorted Array
+    1. Basically we need to implement python's `bisect_left` and `bisect_right`
+    2. Problems
+        * [LC34. Find First and Last Position of Element in Sorted Array][LC34. Find First and Last Position of Element in Sorted Array]
+
 [LC503. Next Greater Element II]: https://leetcode.com/problems/next-greater-element-ii/
 [LC1. Two Sums]: https://leetcode.com/problems/two-sum/
 [LC3. Longest Substring Without Repeating Characters]: https://leetcode.com/problems/longest-substring-without-repeating-characters/
@@ -59,3 +84,7 @@ tags:
 [LC167. Two Sum II - Input array is sorted]: https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
 [LC18. 4Sum]: https://leetcode.com/problems/4sum/  
 [LC1099. Two Sum Less Than K]: https://leetcode.com/problems/two-sum-less-than-k/
+[LC33. Search in Rotated Sorted Array]: https://leetcode.com/problems/search-in-rotated-sorted-array/
+[LC81. Search in Rotated Sorted Array II]: https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
+[LC153. Find Minimum in Rotated Sorted Array]: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+[LC34. Find First and Last Position of Element in Sorted Array]: https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
