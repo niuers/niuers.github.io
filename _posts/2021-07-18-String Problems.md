@@ -24,5 +24,25 @@ tags:
     2. Problems
         * [LC6. ZigZag Conversion][LC6. ZigZag Conversion]
 
+3. Anagrams
+    1. Two strings are anagrams if and only if their sorted strings are equal.
+    2. Two strings are anagrams if and only if their character counts (respective number of occurrences of each character) are the same.
+    3. The main issue is how to generate the key for the dictionary?
+        1. Sort each string, and use the sorted string as key, `O(KlogK)`, where `K` is the string length
+        2. Count the letters in each string, and put the counts in an array, convert the array into tuple, and use the tuple as key. `O(K)`
+            * You can also use the array to generate a unique string as key, e.g. use `#` as separator or put count after each letter.
+        3. Create a map from each character to a prime number (Godel's encoding), and compute the product of prime numbers corresponding to each letter in the string. `O(K)`
+            ```
+            primes = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101]
+            hash_key = 1            
+            for character in string:
+                hash_key *= primes[ord(character)-ord('a')]
+            ```
+    4. Problems
+        * [LC49. Group Anagrams][LC49. Group Anagrams]
+
+
+
 [LC5. Longest Palindromic Substring]: https://leetcode.com/problems/longest-palindromic-substring/
 [LC6. ZigZag Conversion]: https://leetcode.com/problems/zigzag-conversion/
+[LC49. Group Anagrams]: https://leetcode.com/problems/group-anagrams/

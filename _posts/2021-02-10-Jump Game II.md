@@ -14,6 +14,7 @@ tags:
     This way, the algorithm has to be `O(n^2)`.
     2. I tried different ways to reduce the time complexity without any luck.
     3. After reading the solution, it turns out that a better solution is achieved by using greedy algorithm. It is very tricky and I don't quite understand the algorithm and I am not sure how to prove that it always arrives in the minimum jumps.
+    4. *Update*: In my 2nd time trying on this problem, I still didn't come up with the greedy solution :(
 
 
 2. How did I get the solution? 

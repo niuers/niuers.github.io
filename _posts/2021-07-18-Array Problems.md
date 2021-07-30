@@ -74,6 +74,19 @@ tags:
     2. Problems
         * [LC34. Find First and Last Position of Element in Sorted Array][LC34. Find First and Last Position of Element in Sorted Array]
 
+7. Find the maximum/minimum sum of subarray
+    1. As expected, any subarray whose sum is positive is worth keeping. Let's start with an empty array, and iterate through the input, adding numbers to our array as we go along. Whenever the sum of the array is negative, we know the entire array is not worth keeping, so we'll reset it back to an empty array. However, we don't actually need to build the subarray, we can just keep an integer variable current_subarray and add the values of each element there. When it becomes negative, we reset it to 0 (an empty array).
+    2. Dynamic programming: `O(N)`
+    3. Divide and Conquer: `O(NlogN)`
+    4. Problems
+        * [LC53. Maximum Subarray][LC53. Maximum Subarray]
+
+8. Jump to the end of array game
+    1. Dynamic programming gives `O(N^2)`
+    2. If we use greedy method, we can reduce to `O(N)`
+    3. Problems
+        * [LC55. Jump Game][LC55. Jump Game]
+
 [LC503. Next Greater Element II]: https://leetcode.com/problems/next-greater-element-ii/
 [LC1. Two Sums]: https://leetcode.com/problems/two-sum/
 [LC3. Longest Substring Without Repeating Characters]: https://leetcode.com/problems/longest-substring-without-repeating-characters/
@@ -88,3 +101,5 @@ tags:
 [LC81. Search in Rotated Sorted Array II]: https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
 [LC153. Find Minimum in Rotated Sorted Array]: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
 [LC34. Find First and Last Position of Element in Sorted Array]: https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+[LC53. Maximum Subarray]: https://leetcode.com/problems/maximum-subarray/
+[LC55. Jump Game]: https://leetcode.com/problems/jump-game/

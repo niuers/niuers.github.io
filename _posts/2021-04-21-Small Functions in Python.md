@@ -81,27 +81,37 @@ tags:
   This is not a problem for immutable types, e.g. integer, float, tuple, string, range etc. 
 
 7. Python `split(sep=None, maxsplit=-1)` needs a separator to work properly
-```
-a = '12345'
-m = [int(k) for k in a.split()]
-print(m) # print out [12345]
-# Not the [1,2,3,4,5] as you have thought before
+    * If `sep` is given, consecutive delimiters are not grouped together and are deemed to delimit empty strings (for example, `'1,,2'.split(',')` returns `['1', '', '2']`). The `sep` argument may consist of multiple characters (for example, `'1<>2<>3'.split('<>')` returns `['1', '2', '3']`). Splitting an empty string with a specified separator returns `['']`.
 
-print(a.split(',')) #print out ['12345']
+    ```
+    a = '12345'
+    m = [int(k) for k in a.split()]
+    print(m) # print out [12345] since there's no whitespace, which is default if sep is not given
+    # Not the [1,2,3,4,5] as you might have thought
 
-#Note there's an empty string at index 0 and the end
-a = '/leet/code/'
-print(a.split('/')) # ['', 'leet', 'code', '']
+    print(a.split(',')) #print out ['12345'] #No comma neither
 
-#Note the size is 2 here
-a = '/'
-print(a.split('/)) # ['', '']
+    #Note there's an empty string at index 0 and the end
+    a = '/leet/code/'
+    print(a.split('/')) # ['', 'leet', 'code', '']
 
-# Splitting an empty string with a specified separator returns ['']
+    #Note the size is 2 here
+    a = '/'
+    print(a.split('/)) # ['', '']
 
-If `sep` is not specified or is `None`, a different splitting algorithm is applied: runs of consecutive whitespace are regarded as a single separator, and the result will contain no empty strings at the start or end if the string has leading or trailing whitespace. Consequently, splitting an empty string or a string consisting of just whitespace with a `None` separator returns `[]`.
+    #Also compare following two cases
+    a = '  a  '.split(' ') #each whitespace is treated separately
+    print(len(a), a) # 5 ['', '', 'a', '', '']
+    a = '  a  '.split() #whitespaces are consolidated and treated as one
+    print(len(a), a) #1 ['a']
 
-```
+    #You can't specify an empty separator ''
+    a.split('') #ValueError: empty separator
+
+    ```
+
+    * If `sep` is not specified or is `None`, a different splitting algorithm is applied: runs of consecutive whitespace are regarded as a single separator, and the result will contain no empty strings at the start or end if the string has leading or trailing whitespace. Consequently, splitting an empty string or a string consisting of just whitespace with a `None` separator returns `[]`.
+
 
 8. Unpack Python tuple/list
 ```

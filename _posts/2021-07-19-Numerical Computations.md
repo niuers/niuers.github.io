@@ -10,14 +10,18 @@ tags:
 
 1. Overflow
     1. How to check if a computation will overflow?, e.g. `y = x * 10 + r`
-        * Assume our maximum/minimum integer is (INT_MAX/INT_MIN): `INT_MAX = 2^31-1 =2147483647` (about `2.1x10^9`), `INT_MIN = -2^31 = -2147483648`
+        * Assume our maximum/minimum integer is (INT_MAX/INT_MIN): `INT_MAX = 2^31-1 =2147483647` (about `2x10^9`), `INT_MIN = -2^31 = -2147483648`
         * Also assume we only allow integer calculations here
         * Then `y > INT_MAX` when `x > INT_MAX//10` or `x==INT_MAX//10 and r > 7`
         * Similarly `y < INT_MIN` when `x < INT_MIN//10` or `x == INT_MIN//10 and r < -8`
     2. Given an integer, it can overflow (exceeding `INT_MAX`) if we reverse its digits, e.g. `123` --> `321`. We can just reverse half of the number to avoid overflow. To check if we have arrived at the half, we compare the reversed integer with the original integer (which has been reduced by dividing by 10). We stop when the former is greater than the latter.
+    3. `1 000 000 007` and `1 000 000 009` are known large prime number that you can use to get the benefits of a prime modulo, and they don't let your values overflow since `int` is usually `<= 2 * 10 ^ 9`.
+
+
 
 2. Assume our maximum/minimum integer is (INT_MAX/INT_MIN): `INT_MAX = 2^31-1 =2147483647` (about `2.1x10^9`), `INT_MIN = -2^31 = -2147483648`
-    1. The key observation to make is that the problems are occurring because there are more negative signed 32-bit integers than there are positive signed 32-bit integers. Each positive signed 32-bit integer has a corresponding negative signed 32-bit integer. However, the same is not true for negative signed 32-bit integers. The smallest one, -2147483648, is alone. It is this number that causes the problems.
+    1. The key observation to make is that the problems are occurring because there are more negative signed 32-bit integers than there are positive signed 32-bit integers. Each positive signed 32-bit integer has a corresponding negative signed 32-bit integer. However, the same is not true for negative signed 32-bit integers. The smallest one, `-2147483648`, is alone. It is this number that causes the problems.
+        * One thing to note is that we often want to convert a negative integer to a positive one, this is no problem in Python, but in other programming languages, this conversion will overflow for the smallest integer, i.e. `-2147483648`.
     2. One solution is to work with negative, instead of positive, numbers. This is allows us to use the largest possible range of numbers, and it covers all the ones we need.
 
 3. Divide an integer by another integer without using division/multiplication/mod etc.
@@ -31,10 +35,16 @@ tags:
             * In base-2, division works exactly the same way. However, because there are only two digits (1 and 0), we can simply check if the divisor-padded-with-zeroes is greater than the current dividend, and then if it is, add a 0 digit to the quotient, otherwise add a 1 digit.
 
 
+4. Multiply two integers represented by string
+    1. Use the normal elementary school multiplication method
+    2. Find the value at digit position of 1, 10, 100, ..., separately
 
 
-
-
+5. Computer the power of a number, e.g. `pow(x, n)`
+    1. Use recursion method
+    2. Represent the power `n` as binary number and `n` is thus sum of the corresponding powers of `2`. Then we can use iterative method to compute the power. It stops when the power is 0 (we divide it by 2 each time).
+    3. Problems
+        * [LC50. Pow(x, n)][LC50. Pow(x, n)]
 
 4. Problems
     1. [LC7. Reverse Integer][LC7. Reverse Integer]
@@ -42,3 +52,4 @@ tags:
 
 [LC7. Reverse Integer]: https://leetcode.com/problems/reverse-integer/
 [LC9. 9. Palindrome Number]: https://leetcode.com/problems/palindrome-number/
+[LC50. Pow(x, n)]: https://leetcode.com/problems/powx-n/
