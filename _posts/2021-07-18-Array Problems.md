@@ -63,9 +63,14 @@ tags:
         2. In this case, we have no option but to move to next search space iteratively (e.g. increase left by 1). Hence, there are certain search spaces that allow a binary search, and some search spaces that don't.
             * Alternatively, we can call the function recursively on two parts of the array separately.
         3. Time complexity : `O(N)` worst case, `O(logN)` best case, where `N` is the length of the input array.
-    4. Related problems
+    4. Find the minimum value in the array
+        1. We can find the inflection point, when either of the two conditions is satisfied:
+            * `nums[mid] > nums[mid + 1]` Hence, `mid+1` is the smallest.
+            * `nums[mid - 1] > nums[mid]` Hence, `mid` is the smallest.
+    5. Related problems
         * [LC 33. Search in Rotated Sorted Array][LC 33. Search in Rotated Sorted Array]
         * [LC81. Search in Rotated Sorted Array II][LC81. Search in Rotated Sorted Array II]
+        * [LC153. Find Minimum in Rotated Sorted Array][LC153. Find Minimum in Rotated Sorted Array]
         * [LC153. Find Minimum in Rotated Sorted Array][LC153. Find Minimum in Rotated Sorted Array]
 
 
@@ -78,14 +83,40 @@ tags:
     1. As expected, any subarray whose sum is positive is worth keeping. Let's start with an empty array, and iterate through the input, adding numbers to our array as we go along. Whenever the sum of the array is negative, we know the entire array is not worth keeping, so we'll reset it back to an empty array. However, we don't actually need to build the subarray, we can just keep an integer variable current_subarray and add the values of each element there. When it becomes negative, we reset it to 0 (an empty array).
     2. Dynamic programming: `O(N)`
     3. Divide and Conquer: `O(NlogN)`
+    4. [Kadane's Algorithm Explained][Kadane's Algorithm Explained]: it solves the problem of finding the maximum subarray sum in a one-dimensional array
+        * At each index, we have two choices: either start at the current index or add the current element to the previous sum.
+        * And since we want the maximum subarray sum, we add the current element to the maximum of `0` and previous sum (zero here denotes that we’re starting anew from the current element).
+        * Let’s take an array `dp[]` where each `dp[i]` denotes maximum subarray sum ending at index `i` (including `i`). We have `dp[i] = max(dp[i-1], 0) + nums[i]`.
     4. Problems
         * [LC53. Maximum Subarray][LC53. Maximum Subarray]
+        * [LC152. Maximum Product Subarray][LC152. Maximum Product Subarray]
 
 8. Jump to the end of array game
     1. Dynamic programming gives `O(N^2)`
     2. If we use greedy method, we can reduce to `O(N)`
     3. Problems
         * [LC55. Jump Game][LC55. Jump Game]
+
+9. Merge Sorted Arrays
+    1. Whenever you're trying to solve an array problem in-place, always consider the possibility of iterating backwards instead of forwards through the array. It can completely change the problem, and make it a lot easier.
+    2. Problems
+        * [LC88. Merge Sorted Array][LC88. Merge Sorted Array]
+
+10. Compute the maximum profit
+    1. Only 1 buy and 1 sell transactions allowed
+        * Record the current minimum price and update the maximum profit while looping through the array
+    2. Multiple buy and sell transactions allowed
+        * Peak Valley approach (draw picture): 
+            * The points of interest are the consecutive valleys and peaks. The key point is we need to consider **every peak immediately following a valley** to maximize the profit. In case we skip one of the peaks (trying to obtain more profit), we will end up losing the profit over one of the transactions leading to an overall lesser profit.
+            * Find consecutive peaks and valleys, and use them to compute the profit
+        * We can directly keep on adding the difference between the consecutive numbers of the array if the second number is larger than the first one, and at the total sum we obtain will be the maximum profit
+    3. Problems
+        * [LC121. Best Time to Buy and Sell Stock][LC121. Best Time to Buy and Sell Stock]
+
+
+11. [LC128. Longest Consecutive Sequence][LC128. Longest Consecutive Sequence]
+
+
 
 [LC503. Next Greater Element II]: https://leetcode.com/problems/next-greater-element-ii/
 [LC1. Two Sums]: https://leetcode.com/problems/two-sum/
@@ -103,3 +134,10 @@ tags:
 [LC34. Find First and Last Position of Element in Sorted Array]: https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 [LC53. Maximum Subarray]: https://leetcode.com/problems/maximum-subarray/
 [LC55. Jump Game]: https://leetcode.com/problems/jump-game/
+[LC88. Merge Sorted Array]: https://leetcode.com/problems/merge-sorted-array/
+[LC121. Best Time to Buy and Sell Stock]: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+[1D Kadane Algorithm]: https://en.wikipedia.org/wiki/Maximum_subarray_problem
+[Kadane's Algorithm Explained]: https://hackernoon.com/kadanes-algorithm-explained-50316f4fd8a6
+[LC128. Longest Consecutive Sequence]: https://leetcode.com/problems/longest-consecutive-sequence/
+[LC152. Maximum Product Subarray]: https://leetcode.com/problems/maximum-product-subarray/
+[LC153. Find Minimum in Rotated Sorted Array]: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/

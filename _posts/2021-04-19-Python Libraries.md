@@ -8,13 +8,21 @@ tags:
   - summary
 ---
 
-1. OrderedDict:
-    1. Python Source Code for OrderedDict: [Python OrderedDict Source]
+1. `OrderedDict`:
+    1. [Python Source Code for OrderedDict][Python OrderedDict Source]:
     2. The OrderedDict is all about recording insertion order. If any other order is of interest, then another structure (like an in-memory dbm) is likely a better fit.
     3. [What are the trade-offs of the possible underlying data structures?][Python OrderedDict Tradeoff]
         * Keeping a sorted list of keys is fast for all operations except `__delitem__()` which becomes an `O(n)` exercise. This data structure leads to very simple code and little wasted space.
         * Keeping a separate dictionary to record insertion sequence numbers makes the code a little bit more complex. All of the basic operations are `O(1)` but the constant factor is increased for `__setitem__()` and `__delitem__()` meaning that every use case will have to pay for this speedup (since all buildup go through `__setitem__`). Also, the first traveral incurs a one-time `O(n log n)` sorting cost. The storage costs are double that for the sorted-list-of-keys approach.
         * A version written in C could use a linked list. The code would be more complex than the other two approaches but it would conserve space and would keep the same big-oh performance as regular dictionaries. It is the fastest and most space efficient.
+    4. This can be used to implement LRU cache.
+    5. Member methods
+        * `popitem(last=True)`: The `popitem()` method for ordered dictionaries returns and removes a `(key, value)` pair. The pairs are returned in LIFO order if last is true or FIFO order if false.
+        * `move_to_end(key, last=true)`: Move an existing key to either end of an ordered dictionary. The item is moved to the right end if last is true (the default) or to the beginning if last is false. Raises `KeyError` if the key does not exist:
+
+ 
+
+
 
 
 
@@ -172,6 +180,12 @@ math.gcd(12,8) # returns 4
 11. `random`
     1. `random.choice(seq)`: Return a random element from the non-empty sequence `seq`. If `seq` is empty, raises `IndexError`
     2. 
+
+12. `lru_cache(maxsize=128, typed=False)`: Least-recently-used cache decorator
+    1. If `maxsize` is set to `None`, the LRU features are disabled and the cache can grow without bound.
+    2. Python implements it using double linked list.
+
+
 
 [Python OrderedDict Source]: https://github.com/python/cpython/blob/226a012d1cd61f42ecd3056c554922f359a1a35d/Objects/odictobject.c
 [RealPython Defaultdict]: https://realpython.com/python-defaultdict/#diving-deeper-into-defaultdict

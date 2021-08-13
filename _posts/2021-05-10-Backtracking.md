@@ -79,9 +79,17 @@ backtrack(0, path, results)
         * The 3rd method is to generate a count of various numbers, and use that to search for valid combinations (reducing the count of a number by 1 when it's picked).
             * The use of a counter effectively remove the location differences of the same number. 
             * This ends up with the same set of combinations in the 2nd method above.
-    4. Problems
+    4. Lexicographic (binary sorted) combinations
+        * Think of mapping the set of numbers (`1,2,...,n`) to a binary number
+        * Initiate nums as a list of integers from `1` to `k`. Add `n + 1` as a last element, it will serve as a sentinel. Set the pointer in the beginning of the list `j = 0`.
+        * While `j < k` : Add the first `k` elements from nums into the output, i.e. all elements but the sentinel. Find the first number in nums such that `nums[j]+ 1 != nums[j + 1]` and increase it by one `nums[j]++` to move to the next combination.
+
+
+    5. Problems
         * [LC40. Combination Sum II][LC40. Combination Sum II]
         * [LC39. Combination Sum][LC39. Combination Sum]
+        * [LC131. Palindrome Partitioning][LC131. Palindrome Partitioning]
+            * In backtrack, suppose the complexity of size `n` is `T(n)`, for this problem, we can tell that in the worst case, `T(n) = T(n-1)+T(n-2)+...+T(2)+T(1)`. Similarly we have `T(n-1) = T(n-2)+...+T(2)+T(1)`, subtract from the previous equation, we have `T(n)=2T(n-1)`, by induction, we have `T(n) = 2^n`.
 
 6. Permutations
     1. A brutal force is to use a visited set to record the numbers that have been used. The loop in backtrack() function goes through each number in the original array but skip the ones in the visited set. Adding each new number into the 'track' until a valid permutation forms. This has the complexity of `O(N^N)`, which is much larger than the full set of permutations `O(N!)`.
@@ -97,6 +105,47 @@ backtrack(0, path, results)
         * [LC46. Permutations][LC46. Permutations]
 
 7. Subsets
+    1. Backtrack
+        * The order of the subsets in the result is the preorder traversal of the recursion tree. All that is left to do is to code the solution. Sort the array first to avoid duplicates.
+        * You can also use a counter
+        * N.B. To avoid duplicates, we need to avoid adding duplicate while keeping the size of current subset the same as before. So that's why we need to increase the subset size when encounter a duplicate.
+    2. Bitmasking
+    3. Cascading
+        * Whenever the element under consideration has duplicates, we add one of the duplicate elements to all the existing subsets to create new subsets. For the rest of the duplicates, we only add them to the subsets created in the previous step. By convention, whenever a value is encountered for the first time, we add it to all the existing subsets. Then onwards we add its duplicates only to the subsets created in the previous step.
+        * We treat a group of duplicate elements as an array. Suppose we have an array `[3, 3, 3]`. The ways to add the elements from this array to the existing subsets are as follows:
+            * Not add any element having value 3 in any subset.
+            * Add one 3 in all the subsets.       
+            * Add two 3 in all the subsets.
+            * Add three 3 in all the subsets.            
+    4. Problems
+        * [LC78. Subsets][LC78. Subsets]
+        * [LC90. Subsets II][LC90. Subsets II]
+
+
+8. General strategies to Combination/Permutation/Subsets Problems
+    1. [There are generally three strategies to do it][LC78. Subsets]:
+        * Recursion
+        * Backtracking
+        * Lexicographic generation based on the mapping between binary bitmasks and the corresponding permutations / combinations / subsets.
+            * This method has the best time complexity, and as a bonus, it generates lexicographically sorted output for the sorted inputs
+            * The idea is that we map each subset to a bitmask of length `n`, where `1` on the `ith` position in bitmask means the presence of `nums[i]` in the subset, and `0` means its absence.
+            * Hence to solve the subset problem, we just need to generate `n` bitmasks from `0..00` to `1..11`
+            * The real problem here is how to deal with zero left padding, because one has to generate bitmasks of fixed length, i.e. `001` and not just `1`. For that one could use standard bit manipulation trick. N.B. `bin(1)` produces `0b1`, not `0b0000...01`.
+            ```
+            nth_bit = 1 << n
+            for i in range(2**n):
+                # generate bitmask, from 0..00 to 1..11
+                bitmask = bin(i | nth_bit)[3:]
+            ```
+            * or keep it simple stupid and shift iteration limits
+            ```
+            for i in range(2**n, 2**(n + 1)):
+                # generate bitmask, from 0..00 to 1..11
+                bitmask = bin(i)[3:]            
+            ```
+            * However, in this approach, some of the generated subsets will be duplicates. So we need to use an additional set, `seen` of type `string`, to detect duplicate subsets. In order to make use of `seen`, we must first sort the given array. Otherwise, seen won't be able to distinguish between duplicate subsets.
+
+    
 
 
 [LC729. My Calendar I]: https://leetcode.com/problems/my-calendar-i/
@@ -105,3 +154,6 @@ backtrack(0, path, results)
 [LC39. Combination Sum]: https://leetcode.com/problems/combination-sum/
 [LC40. Combination Sum II]: https://leetcode.com/problems/combination-sum-ii/
 [LC46. Permutations]: https://leetcode.com/problems/permutations/
+[LC78. Subsets]: https://leetcode.com/problems/subsets/
+[LC90. Subsets II]: https://leetcode.com/problems/subsets-ii/
+[LC131. Palindrome Partitioning]: https://leetcode.com/problems/palindrome-partitioning/

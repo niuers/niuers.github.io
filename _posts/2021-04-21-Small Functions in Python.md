@@ -23,6 +23,17 @@ tags:
     a = ['abc', None, 'efg']
     print(''.join(a)) # TypeError: sequence item 1: expected str instance, NoneType found
     ```
+    * If you join on an array with a single element, you get the single string back (i.e. no join happens)
+    ```
+    a = ['']
+    '/'.join(a) # returns ''
+
+    a = ['root']
+    s = '/'.join(a) # returns 'root'
+
+    a = ['', 'root']
+    s = '/'.join(a) # returns '/root'
+    ```
 
 3. Binary/Hexidecimal numbers
     1. Convert integer to binary/hexidecimal string
@@ -111,6 +122,10 @@ tags:
     ```
 
     * If `sep` is not specified or is `None`, a different splitting algorithm is applied: runs of consecutive whitespace are regarded as a single separator, and the result will contain no empty strings at the start or end if the string has leading or trailing whitespace. Consequently, splitting an empty string or a string consisting of just whitespace with a `None` separator returns `[]`.
+    ```
+    print('  abc  def  '.split()) # ['abc', 'def']
+    print('   '.split())  # []
+    ```
 
 
 8. Unpack Python tuple/list
@@ -253,3 +268,14 @@ arr = list(str(input))
 output = int("".join(arr))
 
 ```
+
+20. Check if a string is numerical, alphabet
+    1. `str.isalnum()`: Return `True` if **all characters** in the string are alphanumeric and there is at least one character, `False` otherwise. A character `c` is alphanumeric if one of the following returns `True`: `c.isalpha()`, `c.isdecimal()`, `c.isdigit()`, or `c.isnumeric()`.
+
+21. Convert a string to lower/upper case
+    ```
+    str.lower()
+    str.upper()
+    ```
+
+22. `strip([chars])` will remove both leading and trailing characters    

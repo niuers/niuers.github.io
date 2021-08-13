@@ -26,4 +26,14 @@ res.append(sublist) #This won't work
 sublist.append(4)   
 ```
 
+4. When deal with matrix, consider matrix with only 1 element, 1 row and 1 column. 
+
+5. When check if a binary search tree (BST) is valid or not, make sure that **all nodes**(not just the left child of the root) on the left should be smaller than the root, and **all nodes** on the right should be larger than the root. 
 [LC8. String to Integer (atoi)]: https://leetcode.com/problems/string-to-integer-atoi/
+
+6. If you need to update a variable inside a function and the variable is used outside the function as well. Be sure to declare it as `nonlocal` to avoid error. This doesn't apply to mutable types, e.g. `list`.
+
+7. If you are given a class, make sure your instance use the proper arguments, especially don't miss any non-default arguments.
+
+
+

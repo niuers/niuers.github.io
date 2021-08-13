@@ -46,10 +46,46 @@ tags:
     3. Problems
         * [LC50. Pow(x, n)][LC50. Pow(x, n)]
 
-4. Problems
+6. Interger division
+    1. `-121//7= -18`, `int(-121/7)=-17`. The latter is truncated toward `0`
+
+7. The cost of integer multiplication
+    1. Generally multiplications are on numbers within a fixed bit-size (e.g. 32 bit or 64 bit ints), we treat them as `O(1)` operations. However, as the size of the numbers to be multiplied grow, we can no longer assume this (as Python can represent arbitrary large integers, it's clear that the integers in Python won't have fixed size when they become large).
+    2. A popular way people multiply two large numbers, that you probably learned in school, [has a cost][Complexity of arithmetic operations] of `O((logx)(logy))`.
+        * If `a` and `b` are, for example, `float`s, then the complexity of `a*b` or `a+b` is  `O(1)`. That's because, for numbers that have a set number of digits, operations like addition and multiplication are performed by the CPU. To simplify a little bit, if the CPU's clock speed is 2Ghz, that means it can perform 2 billion elementary operations like addition or multiplication per second.
+        * However, for ints, the story is more complicated, since they do not have a set number of digits, and can be arbitrarily large.
+        * Roughly speaking, `a+b` requires as many additions as there are digits in  `max(a,b)`, which is `O(max(log a,log b))`
+        * The complexity of long multiplication is  `O(loga×logb)`
+    3. Problems
+        * [LC172. Factorial Trailing Zeroes][LC172. Factorial Trailing Zeroes]    
+
+8. Check how many 5s are in the factorial of `n`, i.e. `n!`
+    1. For each number, check how many 5s are in a number by counting how many times a number can be divided by 5. `O(n)`. The vast majority of numbers checked only contain a single factor of 5. It can be proven that the total number of fives is less than `(2n)/5`
+        ```
+        res = 0
+        while n > 0 and n % 5 == 0:
+          res += 1
+          n = n//5
+        ```
+    2. Count how many times `n` can be divided by 5, 25, 125, ..., and add them together. `O(logn)`
+        * N.B. The extra 5 in 25 is counted by previous 5, similarly for 125.
+        ```
+        res = 0        
+        while n > 0:            
+            n = n//5
+            res += n
+        ```
+
+    3. Problems
+        * [LC172. Factorial Trailing Zeroes][LC172. Factorial Trailing Zeroes]    
+
+9. Problems
     1. [LC7. Reverse Integer][LC7. Reverse Integer]
     2. [LC9. 9. Palindrome Number][LC9. 9. Palindrome Number]
+
 
 [LC7. Reverse Integer]: https://leetcode.com/problems/reverse-integer/
 [LC9. 9. Palindrome Number]: https://leetcode.com/problems/palindrome-number/
 [LC50. Pow(x, n)]: https://leetcode.com/problems/powx-n/
+[LC172. Factorial Trailing Zeroes]: https://leetcode.com/problems/factorial-trailing-zeroes/
+[Complexity of arithmetic operations]: https://www.cs.toronto.edu/~guerzhoy/180/lectures/W11/lec1/ComplArithm.html
