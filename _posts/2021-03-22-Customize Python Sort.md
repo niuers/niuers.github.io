@@ -6,13 +6,15 @@ categories:
 tags:
   - python
   - sort
+---
 
 1. Sort a list in Python
     ```
     a = [7,5,2,1,10]
     a.sort()
-    sorted(a)
+    a = sorted(a)
     ```
+
 2. Sort by provide `key`
     ```
     a = [(7,3), (2,4), (5,8)]
@@ -27,7 +29,6 @@ tags:
 
     ```
     from functools import cmp_to_key
-
     def comp_build(build1, build2):
         bx1, bh1, is_left1 = build1
         bx2, bh2, is_left2 = build2
@@ -42,17 +43,21 @@ tags:
             return -1
 
         return bh1 - bh2
-
     a.sort(key=cmp_to_key(comp_build))
     ```
-
+    
 4. Overwrite `__lt__`
-```
-    def __lt__(self, other):
-        return self.dist < other.dist
-```
+    ```
+    class CompareString(str):  #inherit from 'str' class
+        def __lt__(self, other):
+            return self < other
 
+    sorted(str_array, key=CompareString)
+    ```
 
+5. Problems
+    * [LC179. Largest Number][LC179. Largest Number]
 
 
 [Python heapq Heap Queue Algorithm]: https://docs.python.org/3/library/heapq.html
+[LC179. Largest Number]: https://leetcode.com/problems/largest-number/

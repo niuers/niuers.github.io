@@ -23,11 +23,20 @@ tags:
         * We can observe that, for any given `n`, the total number of layers is given by : `⌊(n+1)/2⌋`. This works for both even and odd `n`.
 
 
+3. Search in a sorted matrix
+    1. Iterate over the diagonal. let `m` denotes the number of rows and `n` denotes the number of columns.
+        * Search the target element by element `O(m+n)`: start from top right or bottom left.
+        * Search the target using binary search `O(log n!)=O(n log n)`: each time search the sub-matrix from current `i-th` diagonal.
+    2. Divide and Conquer: We can partition a sorted two-dimensional matrix into four sorted submatrices, two of which might contain target and two of which definitely do not. `O(nlogn)`
+        * we seek along the matrix's middle column  `mid` for an index `row` such that `matrix[row-1][mid] < target < matrix[row][mid]`
+
+
+
 
 [LC48. Rotate Image]: https://leetcode.com/problems/rotate-image/
 [LC54. Spiral Matrix]: https://leetcode.com/problems/spiral-matrix/
 [LC59. Spiral Matrix II]: https://leetcode.com/problems/spiral-matrix-ii/
-
+[LC240. Search a 2D Matrix II]: https://leetcode.com/problems/search-a-2d-matrix-ii/
 
 
 

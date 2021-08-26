@@ -48,7 +48,16 @@ tags:
 
 5. Time complexity of string slice `s[i:j]` is `O(j-i+1)`
 
+6. [Check if a string pattern matches an array of words][LC290. Word Pattern]
+    1. Use a hashmap and a set
+    2. Use a single hash map of indices for each pattern and word, and check if the indices match. 
+        * N.B. This doesn't work if the word is single character. 
+            * Example: pattern = "abba", words = "dog a a dog"
+        * But it can be resolved using two hash maps.
+        * Or add prefix for the keys, e.g. 'char_' and 'word_'
+
 [LC5. Longest Palindromic Substring]: https://leetcode.com/problems/longest-palindromic-substring/
 [LC6. ZigZag Conversion]: https://leetcode.com/problems/zigzag-conversion/
 [LC49. Group Anagrams]: https://leetcode.com/problems/group-anagrams/
 [LC97. Interleaving String]: https://leetcode.com/problems/interleaving-string/
+[LC290. Word Pattern]: https://leetcode.com/problems/word-pattern/

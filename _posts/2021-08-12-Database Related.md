@@ -49,9 +49,36 @@ tags:
 7. Check if a field is NULL
     1. `where isnull(column_name)`
     2. `where column_name is null`
+
+8. Get the rank of a value
+    1. sql query
+        ```
+        select Score, count(tmp.s)  as `Rank` from (select distinct Score s from Scores) tmp, Scores where s >= Score group by Scores.Id order by Score desc
+        ```
+    2. Links
+        * [LC178. Rank Scores][LC178. Rank Scores]
+        * [MySQL Two Simple Solutions and Explanations for Beginners][MySQL Two Simple Solutions and Explanations for Beginners]
+
+9. Get the maximum value in a group
+    1. `select Id, max(Salary) from Table group by Id`
+
+10. Use `IN` to check if some values exist, you can check multiple fields at the same time
+    1. `select * from T where (T.A, T.B) in (select t.a, t.b from Table))`
+
+11. `DATEDIFF(date1, date2)`: the difference in days
+12. `TO_DAYS(table.DATE)`: return the number of days between from year 0 to date `DATE`
+
+13. `delete from`: 
+    * `delete from Person where Id not in (select * from (select min(Id) from Person group by Email) tmp )`: delete everything from `Person` except the record with minimum `Id` grouped by Email
+    * N.B. This doesn't work. `delete from Person where Id not in (select min(Id) from Person group by Email)`
+        * It'll throw error: " You can't specify target table 'Person' for update in FROM clause ",
+        * the thing is you need explicitly create the temporary table which is a copy of the original table. Without that mysql will use the same copy of table and it is problematic since inner select clause may use stale table data which has been deleted by outer query as the query is in progress.
+
 [LC48. Rotate Image]: https://leetcode.com/problems/rotate-image/
 [LC54. Spiral Matrix]: https://leetcode.com/problems/spiral-matrix/
 [LC59. Spiral Matrix II]: https://leetcode.com/problems/spiral-matrix-ii/
+[LC178. Rank Scores]: https://leetcode.com/problems/rank-scores/
+[MySQL Two Simple Solutions and Explanations for Beginners]: https://leetcode.com/problems/rank-scores/discuss/456610/MySQL-Two-Simple-Solutions-and-Explanations-for-Beginners
 
 
 

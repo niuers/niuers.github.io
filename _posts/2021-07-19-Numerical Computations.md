@@ -60,7 +60,7 @@ tags:
         * [LC172. Factorial Trailing Zeroes][LC172. Factorial Trailing Zeroes]    
 
 8. Check how many 5s are in the factorial of `n`, i.e. `n!`
-    1. For each number, check how many 5s are in a number by counting how many times a number can be divided by 5. `O(n)`. The vast majority of numbers checked only contain a single factor of 5. It can be proven that the total number of fives is less than `(2n)/5`
+    1. For each number, check how many 5s are in a number by counting how many times a number can be divided by 5. `O(n)`. The vast majority of numbers checked only contain a single factor of 5. It can be proven that the total number of fives is less than `(2n)/5` 
         ```
         res = 0
         while n > 0 and n % 5 == 0:
@@ -79,9 +79,46 @@ tags:
     3. Problems
         * [LC172. Factorial Trailing Zeroes][LC172. Factorial Trailing Zeroes]    
 
-9. Problems
+9. Find all prime numbers less than `n`
+    1. It's `O(sqrt(n))` complexity to check if a number is prime
+    2. Sieve of Eratosthenes `O(\sqrt(n)loglogn)`: 
+        * We can start with the smallest prime number, 2, and mark all of its multiples up to "n" as non-primes. Then we repeat the same process for the next available number in the array that is not marked as composite and so on.
+        * The outer loop will start at 2 and go up to `sqrt(n)`, This is because by that point we will have considered all of the possible multiples of all the prime numbers below `n`. `O(sqrt(n))`
+        * For the inner loop, We will invariantly pick the next available prime number (a number/index not yet marked in the array as a composite) before entering the inner loop. Say the index we picked from the outer loop is `i`, then the inner loop will start at `i*i` and increase by increments of `i` until it surpasses `n`. In short, we iterate over every multiple of `i` between `i` and `n`. 
+        * N.B. the prime numbers smaller than `i` would have already covered the multiples smaller than `i*i`.
+
+10. Using `e` will set the number to float. For example, `1e+9` is a float number not an integer in python. You need use `1000000000` instead.
+
+11. [Check if a number if power of 3][LC326. Power of Three]
+    1. As 3 is prime number, if we use 32-bit to represent integers, the maximum power of 3 is `3**19`, so any number that divides `3**19` is a power of 3. i.e. `3**19 % n == 0`
+    2. You can also check if `log(n, 3)` is an integer. however, you need pay attention to floating point number computations, i.e. use tolerance when do comparison. 
+        * e.g. `log(243,3)` could be `5.0000001` or `4.9999999`, so we want to use a small number, e.g. `epsilon =1.0e-12` to account for this, i.e. ` (log(n,3) + epsilon) % 1 < 2*epsilon`, the `2` on the right is because, in the case of `5.0000001`, the left side will be `0.0000001 + epsilon`
+        * It's not so easy to choose the `epsilon` though. It can't be too small or too large. 
+            * If it's too small and `log(n,3)` is a nummber smaller than the cloest integer, adding to too small number won't make it pass the integer, thus the `%` operation will result in a number closer to 1.
+            * If it's too large and `log(n,3)` is a number larger than the cloest integer, the inequality can be true for number that's not a power of 3.
+
+12. Check if a number is perfect square
+    1. `num` is a perfect square if `x * x == num`
+    2. Use binary search to find the smallest number that satisfying `v*v >= num`
+        * For `num>2` the square root `a` is always less than `num/2` and greater than `1`
+    3. Use Newton's method: you can use graph (tangent) to help derive the equation: `O(logn)`. N.B. Newton's method converges quadratically.
+
+13. Digital Root
+    1. `dr(0) = 0, dr(9k) = 9, dr(n) = n mod 9`
+    2. Remember that "The original number is divisible by 9 if and only if the sum of its digits is divisible by 9", One could expand each power of ten into `9k + 1`
+
+14. [Factor computations][LC254. Factor Combinations]
+    1. To enumerate all factor combinations, we only need to try out the numbers from `2` to `sqrt(n)`, which can be tested by `i*i < n`.
+    2. We need avoid duplicates, e.g. if `n=12`, `[2,2,3] and [3,2,2]` are duplicates if we start from `2` and `3` separately. 
+        * to avoid this, if we start with a factor `i`, then to get all the factors of `n/i`, we should start from `i`, not from `2`.
+        
+15. Problems
     1. [LC7. Reverse Integer][LC7. Reverse Integer]
     2. [LC9. 9. Palindrome Number][LC9. 9. Palindrome Number]
+    3. [LC326. Power of Three][LC326. Power of Three]
+    4. [LC367. Valid Perfect Square][LC367. Valid Perfect Square]
+    5. [LC258. Add Digits][LC258. Add Digits]
+
 
 
 [LC7. Reverse Integer]: https://leetcode.com/problems/reverse-integer/
@@ -89,3 +126,7 @@ tags:
 [LC50. Pow(x, n)]: https://leetcode.com/problems/powx-n/
 [LC172. Factorial Trailing Zeroes]: https://leetcode.com/problems/factorial-trailing-zeroes/
 [Complexity of arithmetic operations]: https://www.cs.toronto.edu/~guerzhoy/180/lectures/W11/lec1/ComplArithm.html
+[LC326. Power of Three]: https://leetcode.com/problems/power-of-three/
+[LC367. Valid Perfect Square]: https://leetcode.com/problems/valid-perfect-square/
+[LC258. Add Digits]: https://leetcode.com/problems/add-digits/
+[LC254. Factor Combinations]: https://leetcode.com/problems/factor-combinations/

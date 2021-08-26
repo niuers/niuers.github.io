@@ -17,6 +17,14 @@ tags:
     3. Problems
         * [LC56. Merge Intervals][LC56. Merge Intervals]
 
+3. Check if an interval can be assigned with previous intervals into the same room
+    1. Min-heap:
+        * Sort the intervals first
+        * Then use a min-heap to check the interval with the smallest ending time
+    2. Chronological Ordering
+        * We treat the start and end times individually
+        * When we encounter an ending event, that means that some meeting that started earlier has ended now. We are not really concerned with which meeting has ended. All we need is that some meeting ended thus making a room available.
+        * We use two pointers for start and end times separately, and compare them to see if a room is available nor not.
 
 
 

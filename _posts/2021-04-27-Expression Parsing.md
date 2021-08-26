@@ -14,31 +14,18 @@ tags:
     3. Recursion
     3. [Build Binary Expression Tree From Infix Expression (LC1597)][LC1597]:
 
+2. Evaulate expressions without parentheses
+    1. Use a deque: compute the values for each `*` and `/`, push them back, then compute the final results from front to end
+    2. Use a stack: convert numbers with `-` to negative numbers and do it similarly as above
+    3. No stack: use variables, `last_number`, `current_number`, `sign`, `current_char` to evaulate the expression.
+        * N.B. You can compute each number digit by digit
 
-2. How to realize that a problem is NOT a dynamic programming problem? 
-    1. [One way to realize that it isn't dynamic programming][LC1631. Path With Minimum Effort] is to notice that the hiker can go in all four directions. This means that a dp algorithm would need to look into subproblems that haven't been solved yet.
-
-
-
-3. Different solutions
-
-
-4. Mistakes
-
-5. Problem Type
-    
-6. Similar Problems
-
-7. Template
-
-8. I understand the solution, but HOW do I think to GET there myself?
-    1. Where could you improve?
-    2. What questions should I ask myself so that I push myself closer to the solution? 
-    3. What conclusions did I reach that I dropped some idea for the other?
-    4. How can I reach this conclusion faster ?
-    
+3. Different ways to add parentheses
+    1. Split the string with the operators, and recursively call on each substrings
+    2. problems
+        * [LC241. Different Ways to Add Parentheses][LC241. Different Ways to Add Parentheses]
 
 
+[LC241. Different Ways to Add Parentheses]: https://leetcode.com/problems/different-ways-to-add-parentheses/
 
 
-[LC1631. Path With Minimum Effort]: https://leetcode.com/problems/path-with-minimum-effort/solution/
