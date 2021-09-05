@@ -33,12 +33,11 @@ tags:
     3. Compute the complexity of recursive function
         * [One of the best ways I find for approximating the complexity of the recursive algorithm][Determining complexity for recursive functions (Big O notation)] is drawing the recursion tree. Once you have the recursive tree:
             * Complexity = (length of tree from root node to leaf node) * (number of leaf nodes) *(time of each node)
-        * 
-
-    
+        *     
     4. Problems
         * [LC172. Factorial Trailing Zeroes][LC172. Factorial Trailing Zeroes]
 
+4. Think about the scalibility while working on the problem
 
 
 [LC172. Factorial Trailing Zeroes]: https://leetcode.com/problems/factorial-trailing-zeroes/

@@ -109,25 +109,25 @@ tags:
 6. `set`/`dict`: 
     1. Can't add/remove items into/from a `set`/`dict` while iterating on it
 
-```
-a = set([1,2,3])
-for i in a:
-    a.add(i+9) # RuntimeError: Set changed size during iteration
-    a.remove(i) # RuntimeError: Set changed size during iteration
+    ```
+    a = set([1,2,3])
+    for i in a:
+        a.add(i+9) # RuntimeError: Set changed size during iteration
+        a.remove(i) # RuntimeError: Set changed size during iteration
 
-# Similarly we have RuntimeError for dict
-a = {1:'a', 2:'b'}
-for i, v in a.items():
-    a['3']='c'
-    del a[1]    
-```
+    # Similarly we have RuntimeError for dict
+    a = {1:'a', 2:'b'}
+    for i, v in a.items():
+        a['3']='c'
+        del a[1]    
+    ```
 
     2. `frozenset`: 
-    Frozen set is just an immutable version of a Python set object. While elements of a set can be modified at any time, elements of the frozen set remain the same after creation. Due to this, frozen sets can be used as keys in Dictionary or as elements of another set. But like sets, it is not ordered (the elements can be set at any index).
+        * Frozen set is just an immutable version of a Python set object. While elements of a set can be modified at any time, elements of the frozen set remain the same after creation. Due to this, frozen sets can be used as keys in Dictionary or as elements of another set. But like sets, it is not ordered (the elements can be set at any index).
 
     3. `set` operations time complexity
         * union `s|t`: `O(len(s)+len(t))`
-        * Intersection `s&t`: `O(min(len(s), len(t)))`
+        * Intersection `s&t`: `O(min(len(s), len(t)))`, worst case `O(len(s)*len(t))`
         * `x in s`: `O(1)` in average, but `O(n)` in worst case
         * Difference `s-t`: `O(len(s))`
 
@@ -137,8 +137,9 @@ for i, v in a.items():
     ```
     item = next(iter(s))
     ```
-
     6. `set`/`dict` lookup is `O(1)` amortized time, but it can be `O(n)` in worst-case if collision happens.
+    7. You can't add a set into another set: 
+        * Raise TypeError: unhashable type 'set'
 
 7. `heappush` and `heappop`
     1. `O(log n)` push and `O(log n)` pop.
@@ -179,7 +180,7 @@ math.gcd(12,8) # returns 4
 
 11. `random`
     1. `random.choice(seq)`: Return a random element from the non-empty sequence `seq`. If `seq` is empty, raises `IndexError`
-    2. 
+    2. `random.randint(a,b)`: Return a random integer `N` such that `a <= N <= b`.
 
 12. `lru_cache(maxsize=128, typed=False)`: Least-recently-used cache decorator
     1. If `maxsize` is set to `None`, the LRU features are disabled and the cache can grow without bound.

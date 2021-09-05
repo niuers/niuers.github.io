@@ -30,6 +30,10 @@ tags:
                 * Since if `x = 2^a`. Then `x` is a power of four only if `a` is even
                 * Next step is to consider both cases `a = 2k` and `a = 2k + 1`, and to compute `x` modulo after division by three
             * You can also check if `log(n, 4)` is an integer, i.e. `log(n,2)/2` is an integer, i.e. `log(n,2)` is even, i.e. `log(n,2) % 2 ==0 `
+    3. Set the `k-th` bit to `1`
+        * `bitmask = 1 << k`
+    4. Combine bits at different locations into one number
+        * `bitmask |= 1 << k`
 
 2. Use `&` to check and set a bit in a number
     ```

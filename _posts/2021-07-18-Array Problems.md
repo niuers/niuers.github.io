@@ -27,7 +27,9 @@ tags:
     5. 4Sum and kSum
         1. We can use recursion for kSum problems.
         2. In the case that the sum equals to target value, we can move just one side, e.g. left pointer and check for duplicate while moving it. We don't have to move both left, right pointers at the same time here.
-    6. Related problems
+    6. Maximum Size Subarray Sum Equals k
+        1. If we look at the prefix sum, a subarray that sums to `k` is equivalent to the subtraction of two prefix sums equals to `k`. If we pre-compute the prefix sum, we can use the concept of two sums (hash set) to find out the index where prefix sum subtracts to `k`
+    7. Related problems
         * [LC1. Two Sums][LC1. Two Sums]
         * [LC16. 3Sum Closest][LC16. 3Sum Closest]
         * [LC15. 3Sum][LC15. 3Sum]
@@ -35,6 +37,7 @@ tags:
         * [LC167. Two Sum II - Input array is sorted][LC167. Two Sum II - Input array is sorted]
         * [LC18. 4Sum][LC18. 4Sum]
         * [LC1099. Two Sum Less Than K][1099. Two Sum Less Than K]
+        * [LC325. Maximum Size Subarray Sum Equals k][LC325. Maximum Size Subarray Sum Equals k]
     
 
 3. Longest Substring Without Repeating Characters
@@ -110,11 +113,94 @@ tags:
             * The points of interest are the consecutive valleys and peaks. The key point is we need to consider **every peak immediately following a valley** to maximize the profit. In case we skip one of the peaks (trying to obtain more profit), we will end up losing the profit over one of the transactions leading to an overall lesser profit.
             * Find consecutive peaks and valleys, and use them to compute the profit
         * We can directly keep on adding the difference between the consecutive numbers of the array if the second number is larger than the first one, and at the total sum we obtain will be the maximum profit
-    3. Problems
+    3. Multiple buy/sell transactions with cool down
+        * State Machine + Dynamic Programming `O(n)`
+            * we will treat the problem as a game, and the trader as an agent in the game. The agent can take actions that lead to gain or lose of game points (i.e. profits). And the goal of the game for the agent is to gain the maximal points.
+            * Now if we chain up each state at each price point, it would form a graph where each path that starts from the initial price point and ends at the last price point represents a combination of transactions that the agent could perform through out the game.
+            * In each node of graph, we also indicate the maximal profits that the agent has gained so far in each state of each step.
+            * States: held, sold, reset
+            * Actions: sell, buy, reset
+        * Dynamic Programming `O(n^2)`
+    4. [A consistent way to solve such problems][Most consistent ways of dealing with the series of stock problems]
+        * Let `T[i][k]` be the maximum profit that could be gained at the end of the `i-th` day with at most `k` transactions.
+        * How many options do we have on the `i-th` day? The answer is three: `buy`, `sell`, `rest`.
+            * However, the `buy/sell` actions depend on how many stocks we have beforehand
+            * So we should put 3rd state into the matrix `T[i][k][0] and T[i][k][1]` indicating we have a stock or not after taking an action
+    5. Problems
         * [LC121. Best Time to Buy and Sell Stock][LC121. Best Time to Buy and Sell Stock]
 
 
 11. [LC128. Longest Consecutive Sequence][LC128. Longest Consecutive Sequence]
+
+12. [Find the duplicate][LC287. Find the Duplicate Number]
+    1. use hash set:  `O(n)` in time, `O(n)` in space
+    2. Set elements to negative:  `O(n)` in time, `O(1)` in space
+        * It modifies input array
+    3. Recursion-Swap elements to corresponding index: `O(n)` in time, `O(n)` in space
+    4. Swap elements to corresponding index: `O(n)` in time, `O(1)` in space
+        * It modifies input array
+    5. binary search: `O(nlogn)` in time, `O(1)` in space
+        * the duplicate number will have a count of numbers less than or equal to itself, that is greater than itself. Hence, the smallest number that satisfies this property is the duplicate number. Since `count(N) >= count(N-1)`, countcount must be monotonically increasing.
+    6. sum of set bits:  `O(nlogn)` in time, `O(1)` in space
+        * Let's look at each of these numbers in binary and count the number of times 1 is seen at each bit position. By iterating over each bit, and comparing the base (without duplicate from `1` to `n`) to the current, we were able to construct the duplicate number bit by bit.
+        * So how does this work if the duplicate number appears more than twice? In that case, think of it as simply replacing the missing numbers with the duplicate number, effectively reducing the count of 1's corresponding to the missing numbers and adding 1's associated with the duplicate number - so the algorithm remains intact, since the count of 1's will be even more pronounced in favor of the duplicate number. If we consider just the positive counts it's the duplicate.
+        * A key observation is that if the array had `n` elements instead of `n + 1` (where each element is in the range `[1,n]`), this solution would not work. The extra number ensures that bit counts at the right positions are always added and never taken away from the base_count.
+    7. Floyd's Tortoise and Hare (Cycle Detection) : `O(n)` in time, `O(1)` in space
+        * The cycle appears because nums contains duplicates. The duplicate node is a cycle entrance.
+    8. sort
+
+13. [Wiggle Sort][LC324. Wiggle Sort II]
+    1. [Partition][Summary of the various solutions to Wiggle Sort for your reference]: this will partition the array (with a total of `n` elements) into two groups which will be called `S` and `L`, respectively. The `S` group will have `m=int((n+1)/2)` elements and the `L` group contains the rest. Also all elements in the `L` group is no less than those in the `S` group. (Note for this partition, `S` and `L` group will have the same number of elements as the even group and odd group, respectively. And the size of `L` group is no more than that of `S` group.)
+    2. Placement: if all elements in the `L` group is greater than those in the `S` group, we can simply place elements in the `L` group at odd indices (thus form the odd group) and those in the `S` group at even indices (form the even group). The tricky case is when there are overlapping (or equal) elements between the two groups.
+        * Let `i` be the index of an element before placement and `j` the index after, for ascending order, we have:
+        ```
+        j = 2 * (m - 1 - i) if i < m
+        j = 2 * (n - 1 - i) + 1 if i >= m
+        ```
+    3. First we prove that if the array can be "wiggly-sorted", the total number of such overlapping elements is no more than the size of the `S` group, which is `m`. 
+    4. Second we show that if we arrange these overlapping elements in such a way that they will occupy the smallest even indices possible if they come from the `S` group and will take the largest odd indices possible if they are from the `L` group, then none of them will be neighbors of others. 
+    5. We put the numbers larger than median to the left, and numbers smaller than median to the right, then put the medians to the left over positions. 
+        * [Quickselect (Hoare's selection algorithm)][Quickselect] to find the `k-th` smallest element (e.g. median)
+            * Average `O(n)` time complexity, `O(N^2)` in worst case
+            * First one chooses a random pivot, and finds its position in a sorted array in linear time using **partition algorithm**.
+                * To implement partition one moves along an array, compares each element with a pivot, and moves all elements smaller than pivot to the left of the pivot.
+                * Then we swap the pivot to its correct position
+                * N.B. This is in-place select, As an output we have an array where pivot is on its perfect position in the ascending sorted array, all elements on the left of the pivot are smaller than pivot, and all elements on the right of the pivot are larger or equal to pivot. Importantly, This invariant is just for the **partition algorithm**, not for the final `find_kth_element` program, as the elements before or after the `k-th` one can still equal to the `k-th` element.
+        ```
+        def find_pivot_index(nums, left, right, random_idx):
+            pivot = nums[random_idx]
+            nums[right], nums[random_idx] = nums[random_idx], nums[right]
+            pivot_idx, j = left, right-1
+            while pivot_idx <= j:
+                if nums[pivot_idx] < pivot:
+                    pivot_idx += 1
+                else:
+                    nums[pivot_idx], nums[j] = nums[j], nums[pivot_idx]
+                    j -= 1
+            # After loop, pivot_idx will be the final position of the pivot
+            # All elements before pivot_idx are less than pivot, all elements after pivot_idx are greater than or equal to pivot
+            nums[right], nums[pivot_idx] = nums[pivot_idx], nums[right]
+            return pivot_idx
+            
+        #You can also use iterative method instead of recursion method here
+        #N.B. The k goes from 0, to n-1 here, k+1 is the normal meaning of k-th smallest in an array
+        def find_kth_element(nums, left, right, k):
+            if left == right:
+                return nums[left]
+            
+            random_idx = random.randint(left, right)
+            pivot = nums[random_idx]
+            sorted_idx = find_pivot_index(nums, left, right, random_idx)
+            if sorted_idx == k:
+                return pivot
+            elif sorted_idx < k:
+                return find_kth_element(nums, sorted_idx+1, right, k)
+            return find_kth_element(nums, left, sorted_idx-1, k)        
+        ```
+    6. N.B. once we find the median, the right/left sides of it can still have the same value of median, and they may not be arranged toward the median, so we need another `O(n)` to move all numbers larger than the median to the right, and all numbers smaller than the median to the left, such that the medians occupy the middle part in a continguous subarray. Then we put the numbers to their proper positions
+            
+
+
 
 
 
@@ -141,3 +227,9 @@ tags:
 [LC128. Longest Consecutive Sequence]: https://leetcode.com/problems/longest-consecutive-sequence/
 [LC152. Maximum Product Subarray]: https://leetcode.com/problems/maximum-product-subarray/
 [LC153. Find Minimum in Rotated Sorted Array]: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+[LC287. Find the Duplicate Number]: https://leetcode.com/problems/find-the-duplicate-number/
+[Most consistent ways of dealing with the series of stock problems]: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/discuss/108870/most-consistent-ways-of-dealing-with-the-series-of-stock-problems
+[LC325. Maximum Size Subarray Sum Equals k]: https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/
+[LC324. Wiggle Sort II]: https://leetcode.com/problems/wiggle-sort-ii/
+[Quickselect]: https://leetcode.com/problems/kth-largest-element-in-an-array/solution/
+[Summary of the various solutions to Wiggle Sort for your reference]: https://leetcode.com/problems/wiggle-sort-ii/discuss/77684/Summary-of-the-various-solutions-to-Wiggle-Sort-for-your-reference

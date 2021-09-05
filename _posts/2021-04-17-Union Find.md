@@ -14,8 +14,11 @@ tags:
     0. Main interfaces
         * `find(a)`:
         * `union(a,b)`
-    1. Use weighted quick-union: The depth of any node in a forest built by weighted quick-union for `N` sites is at most `lg N`. The worst-case order of growth of the cost of `find()`, and `union()` is `log N`. The weighted quick-union algorithm uses at most `c M lg N` array accesses to process `M` connections among `N` sites for a small constant `c`.
+    1. Use weighted quick-union: 
+        * The depth of any node in a forest built by weighted quick-union for `N` sites is at most `lg N`. The worst-case order of growth of the cost of `find()`, and `union()` is `log N`. The weighted quick-union algorithm uses at most `c M lg N` array accesses to process `M` connections among `N` sites for a small constant `c`.
+        * Tracking the sizes of each set; this helps to ensure the tree depth is minimised, as we can ensure the smaller set is attached onto the larger set, and not the other way around. The modifications for this are in the `union(...)` method.
     2. **Path Compression**: weighted quick-union with path compression.
+        * When doing a `find(...)`, keeping track of all the nodes along the path so that afterwards we can make each point directly at the root, so that next time any of those nodes are searched for, it is amortizes to `O(α(N))`, (where `α` is the Inverse Ackermann Function, it grows so slowly that   will never go higher than `4` in the universe as we know it! So while in "practice" it is effectively `O(1)`, in "theory" it is not.). instead of `O(n)` without this optimization. 
         * To implement path compression, we just add another loop to `find()` that sets the `id[]` entry corresponding to each node encountered along the way to link directly to the root.
         * Amortized to almost but not quite constant time for `find()` and `union()`.
     3. Complexity

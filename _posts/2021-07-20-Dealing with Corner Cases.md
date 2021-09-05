@@ -46,5 +46,9 @@ sublist.append(4)
 
 10. When you are dealing with a list of list, consider the cases where the inner lists can be empty.
 
+11. When work with graph, check:
+    1. If there's cycle
+    2. If there're multiple clusters
+    
 [LC290. Word Pattern]: https://leetcode.com/problems/word-pattern/
 

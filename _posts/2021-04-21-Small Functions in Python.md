@@ -43,31 +43,6 @@ tags:
         * `int('0b11111111', 2)` # print out `255`
         * `int('0xff', 16)` #print out `255`
 
-4. Encode a 32-bit integer to a 4-byte string
-    1. Encode
-    ```
-    def int_to_str(x):
-        """
-        Encodes integer to bytes string
-        """
-        #Convert each byte into a character
-        bytes = [chr(x >> (i * 8) & 0xff) for i in range(4)]
-        bytes.reverse()
-        bytes_str = ''.join(bytes)
-        return bytes_str            
-    ```
-    2. Decode
-    ```
-    def str_to_int(bytes_str):
-        """
-        Decodes bytes string to integer.
-        """
-        result = 0
-        for ch in bytes_str:
-            result = result * 256 + ord(ch)
-        return result
-    ```
-
 5. Reverse a list
   ```
   a.reverse()  #returns None, reverse the list in-place
@@ -284,3 +259,11 @@ output = int("".join(arr))
     * With one argument, return the natural logarithm of `x` (to base `e`).
     * With two arguments, return the logarithm of `x` to the given base, calculated as `log(x)/log(base)`.
 
+24. Python swap doesn't work with embeded index
+    ```
+    nums[0], nums[nums[0]] = nums[nums[0]], nums[0] #won't work, nums[0] will be changed, but nums[nums[0]] wont
+    nums[nums[0]], nums[0] = nums[0], nums[nums[0]] #This works
+    ```
+
+25. Remove an element from list
+    1. `my_list.pop(index)`    

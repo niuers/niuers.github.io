@@ -17,10 +17,16 @@ tags:
 2. How to compute the time complexity of backtracking algorithm?
     * We know that the trace of the backtrack would form a n-ary tree. Therefore, the upper bound of the operations would be the total number of nodes in a full-blossom n-ary tree.
         * For example, In problem [425. Word Squares][LC425 Word Squares], at any node of the trace, at maximum it could have 26 branches (i.e. 26 alphabet letters). Therefore, the maximum number of nodes in a 26-ary tree would be approximately `26^L`, where `L` is the height of the tree.
+        * To calculate a loose upper bound for the time complexity, let us consider it as a combination problem where the goal is to construct a sequence of a specific order, i.e. `|V_1V_2...V_n|`. For each position `V_i`, we could have `d` choices, i.e. at each airport one could have at most `d` possible destinations. Since the length of the sequence is `|E|`, the total number of combination would be `|E|^d`.
+d
+ .
+
+
     * Don't forget to count the cost of processing just one of the combinations. For example, if you need loop an array to generate result for one combination, you need multiply `N` to the number of combinations computed above.
     * As we know, the maximal number of nodes in N-ary tree of height `h` would be `N^(h+1)`
     * You can also think of the total number of combinations for your result if it's suitable, that should be the upper bound for your backtrack.
         * While you  are doing this, don't forget the branches that don't end with the final leaves. For example, if you need pick `k` from `n` numbers which should satifying certain conditions. We shouldn't forget to count the combinations of `0`, `1`, `2`, .., `k-1` from `n`, which are the inner nodes in the combination tree. So we usually need to use the **sum of all nodes** to count the complexity.
+    * 
 
 3. Backtracking Template
 ```
@@ -148,7 +154,7 @@ backtrack(0, path, results)
                 # generate bitmask, from 0..00 to 1..11
                 bitmask = bin(i)[3:]            
             ```
-            * However, in this approach, some of the generated subsets will be duplicates. So we need to use an additional set, `seen` of type `string`, to detect duplicate subsets. In order to make use of `seen`, we must first sort the given array. Otherwise, seen won't be able to distinguish between duplicate subsets.
+            * However, in this approach, some of the generated subsets will be duplicates. So we need to use an additional set, `seen` of type `string`, to detect duplicate subsets. In order to make use of `seen`, we must first sort the given array. Otherwise, `seen` won't be able to distinguish between duplicate subsets.
 
     
 

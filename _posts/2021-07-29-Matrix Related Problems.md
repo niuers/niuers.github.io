@@ -30,6 +30,12 @@ tags:
     2. Divide and Conquer: We can partition a sorted two-dimensional matrix into four sorted submatrices, two of which might contain target and two of which definitely do not. `O(nlogn)`
         * we seek along the matrix's middle column  `mid` for an index `row` such that `matrix[row-1][mid] < target < matrix[row][mid]`
 
+4. Multiply Sparse Matrix
+    1. There are several ways to store sparse matrix
+        * A list of list: outer index indicates row index, each element in the inner list is `(col_index, value)`
+        * We can use `3` arrays, 1 for row index, 1 for column index, and 1 for values
+        * We can use YALE format: 1 for values, 1 for column indexes, 1 for number of non-zero elements upto ( not including) the `i-th` row.
+        * 
 
 
 

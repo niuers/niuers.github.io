@@ -56,8 +56,44 @@ tags:
         * But it can be resolved using two hash maps.
         * Or add prefix for the keys, e.g. 'char_' and 'word_'
 
+7. Encoding and decoding
+    1. Chunked Transfer Encoding
+        * Data stream is divided into chunks. Each chunk is preceded by its size in bytes.
+        * For each chunk compute its length, and convert that length into 4-bytes string.
+            * Encode a 32-bit integer to a 4-byte string
+            ```
+            def int_to_str(x):
+                """
+                Encodes integer to bytes string
+                """
+                #Convert each byte into a character
+                bytes = [chr(x >> (i * 8) & 0xff) for i in range(4)]
+                bytes.reverse()
+                bytes_str = ''.join(bytes)
+                return bytes_str            
+            ```
+        * Append to encoded string :
+            * 4-bytes string with information about chunk size in bytes.
+            * Chunk itself.
+    2. Decoding
+        * Read `4` bytes `s[i: i + 4]`. It's chunk size in bytes. Convert this 4-bytes string to integer length.
+        ```
+        def str_to_int(bytes_str):
+            result = 0
+            for ch in bytes_str:
+                result = result * 256 + ord(ch)
+            return result
+        ```
+
+8. [Remove Duplicate Letters][LC316. Remove Duplicate Letters]
+    1. Use stack: this is similar to problem of [creating maximum number][Create Maximum Number]
+    2. 
+
+
 [LC5. Longest Palindromic Substring]: https://leetcode.com/problems/longest-palindromic-substring/
 [LC6. ZigZag Conversion]: https://leetcode.com/problems/zigzag-conversion/
 [LC49. Group Anagrams]: https://leetcode.com/problems/group-anagrams/
 [LC97. Interleaving String]: https://leetcode.com/problems/interleaving-string/
 [LC290. Word Pattern]: https://leetcode.com/problems/word-pattern/
+[LC316. Remove Duplicate Letters]: https://leetcode.com/problems/remove-duplicate-letters/
+[Create Maximum Number]: https://leetcode.com/problems/remove-duplicate-letters/discuss/76769/Java-solution-using-Stack-with-comments/80556
