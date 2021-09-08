@@ -18,14 +18,19 @@ tags:
     4. This can be used to implement LRU cache.
     5. Member methods
         * `popitem(last=True)`: The `popitem()` method for ordered dictionaries returns and removes a `(key, value)` pair. The pairs are returned in LIFO order if last is true or FIFO order if false.
+        ```
+        key, v = my_ordered_dict.popitem(last=False)
+        ```
         * `move_to_end(key, last=true)`: Move an existing key to either end of an ordered dictionary. The item is moved to the right end if last is true (the default) or to the beginning if last is false. Raises `KeyError` if the key does not exist:
-
- 
-
-
-
-
-
+    6. If one would need a structure, which provides four operations in `O(1)` time :
+        * Insert the key
+        * Get the key and check if the key exists
+        * Delete the key
+        * Return the first or last added key/ value
+        * The first three operations in `O(1)` time are provided by the standard hashmap, and the forth one - by linked list.
+        * There is a structure called ordered dictionary, it combines behind both hashmap and linked list. In Python this structure is called `OrderedDict` and in Java LinkedHashMap.
+    7. Problems
+        1. [340. Longest Substring with At Most K Distinct Characters][340. Longest Substring with At Most K Distinct Characters]
 2. deque
     1. Initialize
     `dq = deque([(0,0)])` # Initialize the deque with 1 tuple element
@@ -131,7 +136,7 @@ tags:
         * `x in s`: `O(1)` in average, but `O(n)` in worst case
         * Difference `s-t`: `O(len(s))`
 
-    4. `setdefault(key[, default])`
+    4. dictionary `setdefault(key[, default])`
         If `key` is in the dictionary, return its value. If not, insert key with a value of `default` and return `default`. `default` defaults to `None`.
     5. Get an element from a `set`
     ```
@@ -191,3 +196,4 @@ math.gcd(12,8) # returns 4
 [Python OrderedDict Source]: https://github.com/python/cpython/blob/226a012d1cd61f42ecd3056c554922f359a1a35d/Objects/odictobject.c
 [RealPython Defaultdict]: https://realpython.com/python-defaultdict/#diving-deeper-into-defaultdict
 [Python OrderedDict Tradeoff]: https://www.python.org/dev/peps/pep-0372/
+[340. Longest Substring with At Most K Distinct Characters]: https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/

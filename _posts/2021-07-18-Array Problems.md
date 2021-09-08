@@ -160,43 +160,7 @@ tags:
     3. First we prove that if the array can be "wiggly-sorted", the total number of such overlapping elements is no more than the size of the `S` group, which is `m`. 
     4. Second we show that if we arrange these overlapping elements in such a way that they will occupy the smallest even indices possible if they come from the `S` group and will take the largest odd indices possible if they are from the `L` group, then none of them will be neighbors of others. 
     5. We put the numbers larger than median to the left, and numbers smaller than median to the right, then put the medians to the left over positions. 
-        * [Quickselect (Hoare's selection algorithm)][Quickselect] to find the `k-th` smallest element (e.g. median)
-            * Average `O(n)` time complexity, `O(N^2)` in worst case
-            * First one chooses a random pivot, and finds its position in a sorted array in linear time using **partition algorithm**.
-                * To implement partition one moves along an array, compares each element with a pivot, and moves all elements smaller than pivot to the left of the pivot.
-                * Then we swap the pivot to its correct position
-                * N.B. This is in-place select, As an output we have an array where pivot is on its perfect position in the ascending sorted array, all elements on the left of the pivot are smaller than pivot, and all elements on the right of the pivot are larger or equal to pivot. Importantly, This invariant is just for the **partition algorithm**, not for the final `find_kth_element` program, as the elements before or after the `k-th` one can still equal to the `k-th` element.
-        ```
-        def find_pivot_index(nums, left, right, random_idx):
-            pivot = nums[random_idx]
-            nums[right], nums[random_idx] = nums[random_idx], nums[right]
-            pivot_idx, j = left, right-1
-            while pivot_idx <= j:
-                if nums[pivot_idx] < pivot:
-                    pivot_idx += 1
-                else:
-                    nums[pivot_idx], nums[j] = nums[j], nums[pivot_idx]
-                    j -= 1
-            # After loop, pivot_idx will be the final position of the pivot
-            # All elements before pivot_idx are less than pivot, all elements after pivot_idx are greater than or equal to pivot
-            nums[right], nums[pivot_idx] = nums[pivot_idx], nums[right]
-            return pivot_idx
-            
-        #You can also use iterative method instead of recursion method here
-        #N.B. The k goes from 0, to n-1 here, k+1 is the normal meaning of k-th smallest in an array
-        def find_kth_element(nums, left, right, k):
-            if left == right:
-                return nums[left]
-            
-            random_idx = random.randint(left, right)
-            pivot = nums[random_idx]
-            sorted_idx = find_pivot_index(nums, left, right, random_idx)
-            if sorted_idx == k:
-                return pivot
-            elif sorted_idx < k:
-                return find_kth_element(nums, sorted_idx+1, right, k)
-            return find_kth_element(nums, left, sorted_idx-1, k)        
-        ```
+        * Use quickselect to find the median first
     6. N.B. once we find the median, the right/left sides of it can still have the same value of median, and they may not be arranged toward the median, so we need another `O(n)` to move all numbers larger than the median to the right, and all numbers smaller than the median to the left, such that the medians occupy the middle part in a continguous subarray. Then we put the numbers to their proper positions
             
 
@@ -231,5 +195,4 @@ tags:
 [Most consistent ways of dealing with the series of stock problems]: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/discuss/108870/most-consistent-ways-of-dealing-with-the-series-of-stock-problems
 [LC325. Maximum Size Subarray Sum Equals k]: https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/
 [LC324. Wiggle Sort II]: https://leetcode.com/problems/wiggle-sort-ii/
-[Quickselect]: https://leetcode.com/problems/kth-largest-element-in-an-array/solution/
 [Summary of the various solutions to Wiggle Sort for your reference]: https://leetcode.com/problems/wiggle-sort-ii/discuss/77684/Summary-of-the-various-solutions-to-Wiggle-Sort-for-your-reference

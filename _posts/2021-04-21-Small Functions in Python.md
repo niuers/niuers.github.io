@@ -267,3 +267,9 @@ output = int("".join(arr))
 
 25. Remove an element from list
     1. `my_list.pop(index)`    
+
+26. `str` object does not support item assignment. In such case you want to convert the string object to array, by calling `list(s)`
+    ```
+    s= "hello"
+    s[0] = 'a' #TypeError: 'str' object does not support item assignment
+    ```    

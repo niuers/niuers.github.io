@@ -15,6 +15,15 @@ tags:
             * For any number `n`, doing a bit-wise `AND` of `n` and `n-1` flips the least significant (rightmost) `1-bit` in `n` to `0`.
             * The least significant `1-bit` in `n` always corresponds to the rightmost `0-bit` in `n-1`. So `n & n - 1` always flips the least significant `1-bit` in `n` to `0`, sets all the lower bits to `0` and leaves all other higher bits the same.
             * For example, `12 (1100)` & `11 (1011)` = `8(1000)`. The least significant 1-bit (at `2^2` position) in `12` has flipped to `0`.
+            * Count the number of bit-1 (Pop Count or Hamming Weight)
+            ```
+            def pop_count(x: int) -> int:
+                count = 0
+                while x != 0:
+                    x &= x - 1 # zeroing out the least significant nonzero bit
+                    count += 1
+                return count            
+            ```
     2. Extract the last bit: Isolate the rightmost 1-bit and set all the other bits to `0`
         1. First note that `-x = ~x + 1`:
             * This is due to "two's complement". 
