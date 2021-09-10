@@ -111,8 +111,20 @@ tags:
     1. To enumerate all factor combinations, we only need to try out the numbers from `2` to `sqrt(n)`, which can be tested by `i*i < n`.
     2. We need avoid duplicates, e.g. if `n=12`, `[2,2,3] and [3,2,2]` are duplicates if we start from `2` and `3` separately. 
         * to avoid this, if we start with a factor `i`, then to get all the factors of `n/i`, we should start from `i`, not from `2`.
-        
-15. Problems
+
+15. Greatest Common Divisor (GCD)
+    1. [The Euclidean Algorithm][The Euclidean Algorithm]
+        * GCD(A, B) = GCD(A-B, B) = GCD(A-kB, B) = GCD(A%B, B) = GCD(B, A%B)
+        ```
+        def gcd(a, b):            
+            while b > 0:
+                a, b = b, a%b
+            return a
+        ```
+    2.  [Bezout's identity][Bezout's identity]
+        * We can always find `a` and `b` to satisfy `ax + bx = d` where `d = gcd(x, y)`
+
+16. Problems
     1. [LC7. Reverse Integer][LC7. Reverse Integer]
     2. [LC9. 9. Palindrome Number][LC9. 9. Palindrome Number]
     3. [LC326. Power of Three][LC326. Power of Three]
@@ -130,3 +142,5 @@ tags:
 [LC367. Valid Perfect Square]: https://leetcode.com/problems/valid-perfect-square/
 [LC258. Add Digits]: https://leetcode.com/problems/add-digits/
 [LC254. Factor Combinations]: https://leetcode.com/problems/factor-combinations/
+[The Euclidean Algorithm]: https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
+[Bezout's identity]: https://en.wikipedia.org/wiki/B%C3%A9zout%27s_identity

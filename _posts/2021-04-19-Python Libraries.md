@@ -191,9 +191,12 @@ math.gcd(12,8) # returns 4
     1. If `maxsize` is set to `None`, the LRU features are disabled and the cache can grow without bound.
     2. Python implements it using double linked list.
 
+13. [Python `dict` keeps insertion order since 3.7][Are dictionaries ordered in Python 3.6+?]
+    1. They are insertion ordered. With the existence of OrderedDict, "ordered" suggests further behavior that the `dict` object *doesn't provide*. OrderedDicts are reversible, provide order sensitive methods and, mainly, provide an order-sensive equality tests (`==`, `!=`). `dict`s currently don't offer any of those behaviors/methods.
 
 
 [Python OrderedDict Source]: https://github.com/python/cpython/blob/226a012d1cd61f42ecd3056c554922f359a1a35d/Objects/odictobject.c
 [RealPython Defaultdict]: https://realpython.com/python-defaultdict/#diving-deeper-into-defaultdict
 [Python OrderedDict Tradeoff]: https://www.python.org/dev/peps/pep-0372/
 [340. Longest Substring with At Most K Distinct Characters]: https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/
+[Are dictionaries ordered in Python 3.6+?]: https://stackoverflow.com/questions/39980323/are-dictionaries-ordered-in-python-3-6
