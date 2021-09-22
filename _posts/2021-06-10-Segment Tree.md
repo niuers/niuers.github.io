@@ -39,7 +39,7 @@ tags:
 
 2. [Lazy Propagation in Segment Tree][Lazy Propagation Segment Tree]
     1. It's an optimization when there are lots of updates in the segment tree. It minimizes the number of operations on the nodes for the segment tree.
-    2. Use a lazy tree: 
+    2. [Use a lazy tree][Lazy Propagation]: 
 
 
 
@@ -47,4 +47,5 @@ tags:
 [Lazy Propagation Segment Tree]: https://www.youtube.com/watch?v=xuoQdt5pHj0&t=444s
 [LC307. Range Sum Query - Mutable]: https://leetcode.com/problems/range-sum-query-mutable/
 [Efficient and easy segment trees]: https://codeforces.com/blog/entry/18051
+[Lazy Propagation]: https://leetcode.com/articles/a-recursive-approach-to-segment-trees-range-sum-queries-lazy-propagation/
 

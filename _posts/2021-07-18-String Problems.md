@@ -25,7 +25,7 @@ tags:
         * [LC6. ZigZag Conversion][LC6. ZigZag Conversion]
 
 3. Anagrams
-    1. Two strings are anagrams if and only if their sorted strings are equal.
+    1. Two strings are anagrams if and only if their sorted strings are equal (implicitly they have the same length).
     2. Two strings are anagrams if and only if their character counts (respective number of occurrences of each character) are the same.
     3. The main issue is how to generate the key for the dictionary?
         1. Sort each string, and use the sorted string as key, `O(KlogK)`, where `K` is the string length
@@ -89,6 +89,57 @@ tags:
     1. Use stack: this is similar to problem of [creating maximum number][Create Maximum Number]
     2. 
 
+9. Python string literal use backslash to esacpe
+    1. `\n`, `\t`: they are just one character, you can directly compare a character in string with them, e.g. `s[i] == '\n`.
+    
+10. Substring Problems
+    1. The idea is a general solution for substring (longest/shortest/non-duplicated, etc)
+        * Create a hashmap tracking occurences for any specific chars in the target substring
+        * Create two pointers, `faster = 0` and `slower = 0`, to track current width/distance/range of the two pointers.
+        * Create a `counter` tracking if current width/distance/range is a valid substring range
+        * When `counter` indicates it's a valid range, shrink/expand it's range until range's validity changed(by altering counter accordingly), record down the valid width and let it compare with the last value (using min()/max() accordingly)
+    2. [Template][Here is a 10-line template that can solve most 'substring' problems]
+    ```
+    string minWindow(string s, string t) {
+        unordered_map<char, int> m;
+        // Statistic for count of char in t
+        for (auto c : t) m[c]++;
+        // counter represents the number of chars of t to be found in s.
+        size_t start = 0, end = 0, counter = t.size(), minStart = 0, minLen = INT_MAX;
+        size_t size = s.size();
+        
+        // Move end to find a valid window.
+        while (end < size) {
+            // If char in s exists in t, decrease counter
+            if (m[s[end]] > 0)
+                counter--;
+            // Decrease m[s[end]]. If char does not exist in t, m[s[end]] will be negative.
+            m[s[end]]--;
+            end++;
+            // When we found a valid window, move start to find smaller window.
+            while (counter == 0) {
+                if (end - start < minLen) {
+                    minStart = start;
+                    minLen = end - start;
+                }
+                m[s[start]]++;
+                // When char exists in t, increase counter.
+                if (m[s[start]] > 0)
+                    counter++;
+                start++;
+            }
+        }
+        if (minLen != INT_MAX)
+            return s.substr(minStart, minLen);
+        return "";
+    }
+    ```        
+
+11. [Multiple pattern search in a string][LC438. Find All Anagrams in a String]
+    1. All such problems usually could be solved by sliding window approach in a linear time. The challenge here is how to implement constant-time slice to fit into this linear time.
+    2. If the patterns are not known in advance, i.e. it's "find duplicates" problem, one could use one of two ways to implement constant-time slice: Bitmasks or Rabin-Karp. Please check article [Repeated DNA Sequences][Repeated DNA Sequences] for the detailed comparison of these two algorithms.
+
+
 
 [LC5. Longest Palindromic Substring]: https://leetcode.com/problems/longest-palindromic-substring/
 [LC6. ZigZag Conversion]: https://leetcode.com/problems/zigzag-conversion/
@@ -97,3 +148,6 @@ tags:
 [LC290. Word Pattern]: https://leetcode.com/problems/word-pattern/
 [LC316. Remove Duplicate Letters]: https://leetcode.com/problems/remove-duplicate-letters/
 [Create Maximum Number]: https://leetcode.com/problems/remove-duplicate-letters/discuss/76769/Java-solution-using-Stack-with-comments/80556
+[Here is a 10-line template that can solve most 'substring' problems]: https://leetcode.com/problems/minimum-window-substring/discuss/26808/Here-is-a-10-line-template-that-can-solve-most-'substring'-problems
+[LC438. Find All Anagrams in a String]: https://leetcode.com/problems/find-all-anagrams-in-a-string/
+[Repeated DNA Sequences]: https://leetcode.com/problems/repeated-dna-sequences/solution/

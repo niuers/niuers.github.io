@@ -22,7 +22,7 @@ tags:
 
 
 3. Different solutions
-    1. The solution is using the sliding window, which takes `O(n)`. The main point is to fix the number of unique character first. This is very hard to think about.
+    1. The solution is using the sliding window, which takes `O(n)`. The main point is to fix the number of unique character in each run first. This makes it easier to shrink/expand the window while sliding. This is very hard to think about.
 
 4. Mistakes
 

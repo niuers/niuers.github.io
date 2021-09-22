@@ -64,6 +64,7 @@ tags:
         1. Use `del d[key]`: Remove `d[key]` from `d`. Raises a `KeyError` if key is not in the map.
         2. Use `d.pop(key[, default])`: If `key` is in the dictionary, remove it and return its value, else return `default`. If `default` is not given and key is not in the dictionary, a `KeyError` is raised.
     4. It's okay to use `None` or empty string `''` as key
+    5. You can declare a `graph = defaultdict(defaultdict)` then, `graph[v1][v2] = 1.0`
 
 
 4. `bisect_left(a, x, lo=0, hi=len(a))` and `bisect_right(a, x, lo=0, hi=len(a))`
@@ -180,12 +181,12 @@ math.gcd(12,8) # returns 4
     a = [0,3,2,1,5]
     a[1:3] = []
     print(a) # [0, 1, 5], elements a[1], a[2] are removed
-
+    ```
+    3. Remove an element at certain index
+    ```
+    array.pop(remove_idx)  # `O(n)` complexity
     ```
 
-11. `random`
-    1. `random.choice(seq)`: Return a random element from the non-empty sequence `seq`. If `seq` is empty, raises `IndexError`
-    2. `random.randint(a,b)`: Return a random integer `N` such that `a <= N <= b`.
 
 12. `lru_cache(maxsize=128, typed=False)`: Least-recently-used cache decorator
     1. If `maxsize` is set to `None`, the LRU features are disabled and the cache can grow without bound.
@@ -193,6 +194,10 @@ math.gcd(12,8) # returns 4
 
 13. [Python `dict` keeps insertion order since 3.7][Are dictionaries ordered in Python 3.6+?]
     1. They are insertion ordered. With the existence of OrderedDict, "ordered" suggests further behavior that the `dict` object *doesn't provide*. OrderedDicts are reversible, provide order sensitive methods and, mainly, provide an order-sensive equality tests (`==`, `!=`). `dict`s currently don't offer any of those behaviors/methods.
+
+14. Python `pow(base, exp[, mod])`
+    * Return `base` to the power `exp`; if `mod` is present, return `base` to the power `exp`, modulo `mod` (computed more efficiently than pow(base, exp) % mod). The two-argument form `pow(base, exp)` is equivalent to using the power operator: `base**exp`.
+
 
 
 [Python OrderedDict Source]: https://github.com/python/cpython/blob/226a012d1cd61f42ecd3056c554922f359a1a35d/Objects/odictobject.c

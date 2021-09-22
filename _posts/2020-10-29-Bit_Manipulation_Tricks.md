@@ -117,11 +117,16 @@ tags:
 
 h<sub>&theta;</sub>(x) = &theta;<sub>o</sub> x + &theta;<sub>1</sub>x
 
-7. Sum of two binary numbers without using addition
-  * `XOR` gives the sum without carry: `a^b`
-  * `AND` and shift left by 1 gives the carry: `(a&b)<<1`
+7. Sum/Subtraction of two binary numbers without using addition
+  * Compute `x+y`
+    * `XOR` gives the sum without carry: `x^y`
+    * `AND` and shift left by 1 gives the carry: `(x&y)<<1`
+  * Compute `x-y`
+    * As for addition, `XOR` is a difference of two integers without taking borrow into account.
+    * Borrow contains common set bits of `y` and unset bits of `x`, i.e. `borrow = (~x&y) << 1`
   * Problems
       * [LC67. Add Binary][LC67. Add Binary]
+      * [LC371. Sum of Two Integers][LC371. Sum of Two Integers]
 
 8. Right shifting operations on negative values are undefined
     * One potential pitfall with the right-shift operator is using it on negative odd numbers. Two's complement makes the result one-off what you would expect/ probably wanted. The solution is to add 1 before doing the bit-shift on a negative number. This way, it'll be "correct" regardless of whether the number was odd or even. See [LC29. Divide Two Integers][LC29. Divide Two Integers]
@@ -162,12 +167,13 @@ h<sub>&theta;</sub>(x) = &theta;<sub>o</sub> x + &theta;<sub>1</sub>x
         bin(3)   #'0b11'
         bin(-10) #'-0b1010'
         ```
-        * If the integer is negative, you need subtract it from power of 2
+        * If the integer is negative, you need subtract its absolute value from power of 2
         ```
         print(bin(-7))           # -0b111: not what we want
         print(bin((1 << 8) - 7)) # 0b11111001, two's complement representation with 8-bit
         print(bin((1 << 16) - 7)) # 0b1111111111111001, two's complement representation with 16-bit
         ```
+
         * To convert from binary representation to integer
         ```
         print(0b111)           # 7
@@ -175,6 +181,13 @@ h<sub>&theta;</sub>(x) = &theta;<sub>o</sub> x + &theta;<sub>1</sub>x
         print(0b11111001-pow(2,8))  #-7
         ```
     2. Convert a binary string to integer: `int(s, 2)`, e.g. `int('111', 2)` returns `7`.
+    3. Python has no 32-bits limit, and hence its representation of negative integers is entirely different.
+        * [CPython integer type stores the sign in a specific field of a structure.][Python representation of negative integers] When performing a bitwise operation, CPython replaces negative numbers by their two's complement and sometimes (!) performs the reverse operation (ie replace the two's complements by negative numbers).
+        * After each operation we have an invisible `& mask`, where `mask = 0xFFFFFFFF`, i.e. bitmask of `32` 1-bits.
+        * The overflow, i.e. the situation of `x > 0x7FFFFFFF` (bitmask of `31` 1-bits), is managed as `x --> ~(x ^ 0xFFFFFFFF)`.
+
+
+
 
 13. Pay attention to the operator precendence
     1. The precendence of bit operators `&`, `|` etc. are lower than `+`, `-` etc. So make sure to use parentheses around bit operators. For example:
@@ -199,6 +212,21 @@ h<sub>&theta;</sub>(x) = &theta;<sub>o</sub> x + &theta;<sub>1</sub>x
               ((num<<24)&0xff000000); // byte 0 to byte 3
     ```
 
+17. [Two's Complement Representation of Integers][Two-Complement-Integers]
+    1. Consider the integers that can be represented by 4 bits, for positive integers, the bits have place values of 1, 2, 4, 8 (from right to left)
+    2. Method 1: Use the left-most bit as sign bit
+        * `5` is `0101`, so `-5` is `1101`
+        * `5+(-5) = 2`
+    3. Method 2 One's Complement: Invert every bit
+        * `5` has `0101`, so `-5` is `1010`
+        * `-0` is `1111`
+        * We have both `0` and `-0`
+        * `5+(-5) = -0`, not `0`
+        * `5+(-2) = 2` not `3`
+    4. Method 3 Two's Complement: Invert every bit and plus `1`
+        * `-5` is `1011`
+        * `5+(-2) = 3`
+        * Also the left most bit can have place value of `-8`, the math still works
 
 Resources:
 * [Two Complement Integers by Ben Eater][Two-Complement-Integers]
@@ -216,3 +244,5 @@ Resources:
 [LeetCode #137 Single Number II]: https://lenchen.medium.com/leetcode-137-single-number-ii-31af98b0f462
 [Bit Twiddling Hacks]: http://graphics.stanford.edu/~seander/bithacks.html#ReverseByteWith64BitsDiv
 [How do I convert between big-endian and little-endian values in C++?]: https://www.tutorialspoint.com/how-do-i-convert-between-big-endian-and-little-endian-values-in-cplusplus
+[LC371. Sum of Two Integers]: https://leetcode.com/problems/sum-of-two-integers/
+[Python representation of negative integers]: https://stackoverflow.com/questions/46993519/python-representation-of-negative-integers
