@@ -67,6 +67,8 @@ tags:
     * One small, yet important detail is that it is possible to swap an element with itself - otherwise, some array permutations would be more likely than others. 
   3. Python built-in `random.shuffle(array)`, shuffles the array in-place, `O(n)`
 
+5. Sampling with weight
+  1. 
 
 [LC382. Linked List Random Node]: https://leetcode.com/problems/linked-list-random-node/
 [LC384. Shuffle an Array]: https://leetcode.com/problems/shuffle-an-array/

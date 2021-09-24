@@ -40,9 +40,13 @@ tags:
 7. Sort a list
     * If you use bottom-up merge sort, the space is `O(1)`. The solution is to use the size of the list, and do sort on the size of 1,2,,4,8,16..., then merge neighbor lists.
 
+8. [Circular Linked List][LC708. Insert into a Sorted Circular Linked List]
+    * Try two pointers
+
 [LC142. Linked List Cycle II]: https://leetcode.com/problems/linked-list-cycle-ii/
 [LC147. Insertion Sort List]: https://leetcode.com/problems/insertion-sort-list/
 [LC148. Sort List]: https://leetcode.com/problems/sort-list/
+[LC708. Insert into a Sorted Circular Linked List]: https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/
 
 
     

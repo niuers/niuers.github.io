@@ -31,9 +31,23 @@ tags:
     4. weighted quick-union with path compression: very, very nearly, but not quite `1` (amortized ) cost for `union` and `find`.
 
 3. Template
-```
-
-```
+    1. A class template with path compression
+    ```
+    class UF:
+        def __init__(self, N):
+            self.items = list(range(N)) #each item is initialized with its own group id, i.e. items[i] = i
+        
+        def find(self, x):
+            if self.items[x] != x:
+                self.items[x] = self.find(self.items[x])        #path compression     
+            return self.items[x]
+        
+        def union(self, dest, src):
+            self.items[self.find(dest)] = self.find(src)       #N.B. Two finds() called here
+    ```
+    2. Problems:
+        * [LC721. Accounts Merge][LC721. Accounts Merge]
 
 [LC323 Number of Connected Components in an Undirected Graph]: https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
 [Princeton Tutorial on Union-Find]: https://www.cs.princeton.edu/~wayne/kleinberg-tardos/pdf/UnionFind.pdf
+[LC721. Accounts Merge]: https://leetcode.com/problems/accounts-merge/

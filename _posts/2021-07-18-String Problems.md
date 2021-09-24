@@ -16,6 +16,9 @@ tags:
     2. Find the longest palindromic substrings
         1. dynamic programming: `O(n^2)`
         2. Expand from center: for each position, expand for the cases of even/odd number of characters and find the longest palindrome. This is much faster than the dynamic programming solution even it's still `O(n^2)`
+        * We choose all possible centers for potential palindromes:
+            * Every single character in the string is a center for possible odd-length palindromes
+            * Every pair of consecutive characters in the string is a center for possible even-length palindromes.
     7. Problems
         * [LC5. Longest Palindromic Substring][LC5. Longest Palindromic Substring]
 

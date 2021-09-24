@@ -33,6 +33,13 @@ tags:
 
     a = ['', 'root']
     s = '/'.join(a) # returns '/root'
+
+    a=[]
+    s = ''.joini(a) # returns ''
+    ```
+3. Convert a string to list
+    ```
+    my_arr = list(my_str)
     ```
 
 3. Binary/Hexidecimal numbers
@@ -44,9 +51,19 @@ tags:
         * `int('0xff', 16)` #print out `255`
 
 5. Reverse a list
+  * Reverse Full List
   ```
   a.reverse()  #returns None, reverse the list in-place
   b = a[::-1]  #returns a new list
+  ```
+  * Reverse Partial list
+  ```
+  s = ['a','b','c','d','e','f']
+  print(s[1:4]) #['b', 'c', 'd']
+  print(s[3:0:-1]) # ['d', 'c', 'b']
+  #Note. if the end index is less than 0, it'll return empty list
+  print(s[3:-1:-1]) #[]
+  print(s[3::-1]) #['d', 'c', 'b', 'a']
   ```
 
 6. Don't use mutable type as default parameter value in Python
@@ -186,8 +203,6 @@ print(word[9:]) # []
 ```
 str.isdigit()
 #Return True if all characters in the string are digits and there is at least one character, False otherwise.
-
-
 ```
 
 15. Return the indexes of sorted list

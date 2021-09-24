@@ -164,8 +164,12 @@ tags:
     6. N.B. once we find the median, the right/left sides of it can still have the same value of median, and they may not be arranged toward the median, so we need another `O(n)` to move all numbers larger than the median to the right, and all numbers smaller than the median to the left, such that the medians occupy the middle part in a continguous subarray. Then we put the numbers to their proper positions
             
 
-
-
+14. Classical K-th Problem
+    1. Sort the array and select the first k-th elements. `O(NlogN)`, doesn't allow on-line process
+    2. Put the elements into a max-heap of size k, `O(NlogK)`, can be applied to on-line process
+    3. Use quick-select, average `O(N)`, worst case `O(N^2)`
+    4. Problems
+        * [LC973. K Closest Points to Origin][LC973. K Closest Points to Origin]
 
 
 [LC503. Next Greater Element II]: https://leetcode.com/problems/next-greater-element-ii/
@@ -196,3 +200,4 @@ tags:
 [LC325. Maximum Size Subarray Sum Equals k]: https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/
 [LC324. Wiggle Sort II]: https://leetcode.com/problems/wiggle-sort-ii/
 [Summary of the various solutions to Wiggle Sort for your reference]: https://leetcode.com/problems/wiggle-sort-ii/discuss/77684/Summary-of-the-various-solutions-to-Wiggle-Sort-for-your-reference
+[LC973. K Closest Points to Origin]: https://leetcode.com/problems/k-closest-points-to-origin/

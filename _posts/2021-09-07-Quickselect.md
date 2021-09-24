@@ -18,7 +18,6 @@ tags:
         * 
 
     3. Code Template
-
     ```
     def find_pivot_index(nums, left, right, random_idx):
         pivot = nums[random_idx]
