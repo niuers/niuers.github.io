@@ -11,9 +11,7 @@ tags:
 1. [Prefix Sums][LC437. Path Sum III]
   1. It could be defined for 1D arrays (sum the current value with all the previous integers),
   2. for 2D arrays (sum of the current value with the integers above or on the left)
-  3. for the binary trees (sum the values of the current node and all parent nodes),
-
-
+  3. for the binary trees (sum the values of the current node  and all parent nodes),
 
 
 4. Problems

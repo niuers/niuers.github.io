@@ -13,6 +13,9 @@ tags:
         * First, the question is asking for the maximum or minimum of something. 
         * Second, we have to make decisions that may depend on previously made decisions, which is very typical of a problem involving subsequences.
     2. [Split a sequence in an optimal way (LC1335)][Minimum Difficulty of a Job Schedule]:
+    3. Top-down DP: we apply laissez-faire strategy, i.e. we simply take a first step, while assuming the subsequent steps will figure out on their owns.
+
+
 
 
 2. How to realize that a problem is NOT a dynamic programming problem? 
@@ -94,6 +97,8 @@ tags:
     6. Optimize
         * Once we introduce memoization, we will only solve each subproblem ONCE. We can remove recursion altogether and avoid the overhead and potential of a stack overflow by introducing tabulation. It's important to note that the top down recursive and bottom up tabulation methods perform the EXACT same amount of work. The only different is memory. If they peform the exact same amount of work, the conversion just requires us to specify the order in which problems should be solved.
 
+8. Dynamic programming requires the subproblem solved in topological order. In many problems, it coincides the natural order. For those who doesn't, e.g. in a graph, one need perform topological sorting first. Therefore, for those problems with complex topology ([like this one][LC329. Longest Increasing Path in a Matrix]), search with memorization is usually an easier and better choice.
+
 
 
 
@@ -107,3 +112,4 @@ tags:
 [DP IS EASY! 5 Steps to Think Through DP Questions]: https://leetcode.com/problems/target-sum/discuss/455024/DP-IS-EASY!-5-Steps-to-Think-Through-DP-Questions.
 [LC494. Target Sum]: https://leetcode.com/problems/target-sum/
 [What-does-a-state-represent-in-terms-of-Dynamic-Programming]: www.quora.com/What-does-a-state-represent-in-terms-of-Dynamic-Programming
+[LC329. Longest Increasing Path in a Matrix]: https://leetcode.com/problems/longest-increasing-path-in-a-matrix/

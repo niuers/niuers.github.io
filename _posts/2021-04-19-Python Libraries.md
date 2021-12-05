@@ -31,6 +31,10 @@ tags:
         * There is a structure called ordered dictionary, it combines behind both hashmap and linked list. In Python this structure is called `OrderedDict` and in Java LinkedHashMap.
     7. Problems
         1. [340. Longest Substring with At Most K Distinct Characters][340. Longest Substring with At Most K Distinct Characters]
+2. `dictionary`: Python 3.7 makes it a language feature that dictionaries are 'insertion ordered'
+   * `my_dict.pop(key, default_value)`: `O(1)` in average, `O(n)` in worst
+   * `my_dict.popitem()`: remove the last inserted item
+
 2. deque
     1. Initialize
     `dq = deque([(0,0)])` # Initialize the deque with 1 tuple element
@@ -146,6 +150,17 @@ tags:
     6. `set`/`dict` lookup is `O(1)` amortized time, but it can be `O(n)` in worst-case if collision happens.
     7. You can't add a set into another set: 
         * Raise TypeError: unhashable type 'set'
+    8. You can't add  list into a set, need to change them to tuple
+        * `my_set.add(tuple(my_list))`
+    9. [DO NOT MODIFY (add/remove element) a set or dictionary or list while loop within it][Updating a set while iterating over its elements]. The behavior is "undefined"
+    ```
+    for num in num_set: # use list(num_set) instead
+        track.append(num)
+        num_set.remove(num)                
+        backtrack(num_set, track)                
+        num_set.add(num)
+        track.pop()
+    ```
 
 7. `heappush` and `heappop`
     1. `O(log n)` push and `O(log n)` pop.
@@ -198,6 +213,17 @@ math.gcd(12,8) # returns 4
 14. Python `pow(base, exp[, mod])`
     * Return `base` to the power `exp`; if `mod` is present, return `base` to the power `exp`, modulo `mod` (computed more efficiently than pow(base, exp) % mod). The two-argument form `pow(base, exp)` is equivalent to using the power operator: `base**exp`.
 
+15. Check a string is alpha, numeric or not:
+    * `s.isalnum()`
+
+16. [Python `str` slice complexity][Time complexity of string slice]
+    * Short answer: `str` slices, in general, copy.
+    * Long answer: (C)Python `str` do not slice by referencing a view of a subset of the data. There are exactly three modes of operation for `str` slicing:
+        * Complete slice, e.g. `mystr[:]`: Returns a reference to the exact same `str` (not just shared data, the same actual object, `mystr` is `mystr[:]` since `str` is immutable so there is no risk to doing so)
+        * The zero length slice and (implementation dependent) cached length 1 slices; the empty string is a singleton (`mystr[1:1]` is `mystr[2:2]` is `''`), and low ordinal strings of length one are cached singletons as well (on CPython 3.5.0, it looks like all characters representable in latin-1, that is Unicode ordinals in range(256), are cached)
+        * All other slices: The sliced `str` is copied at creation time, and thereafter unrelated to the original `str`. The reason why #3 is the general rule is to avoid issues with large `str` being kept in memory by a view of a small portion of it. If you had a 1GB file, read it in and sliced it like so. then you'd have 1 GB of data being held in memory to support a view that shows the final 1 KB, a serious waste. Since slices are usually smallish, it's almost always faster to copy on slice instead of create views. It also means `str` can be simpler; it needs to know its size, but it need not track an offset into the data as well.
+    * N.B. Get a slice from a list is on average the length of the slice, i.e. `O(end-start)`
+
 
 
 [Python OrderedDict Source]: https://github.com/python/cpython/blob/226a012d1cd61f42ecd3056c554922f359a1a35d/Objects/odictobject.c
@@ -205,3 +231,5 @@ math.gcd(12,8) # returns 4
 [Python OrderedDict Tradeoff]: https://www.python.org/dev/peps/pep-0372/
 [340. Longest Substring with At Most K Distinct Characters]: https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/
 [Are dictionaries ordered in Python 3.6+?]: https://stackoverflow.com/questions/39980323/are-dictionaries-ordered-in-python-3-6
+[Time complexity of string slice]: https://stackoverflow.com/questions/35180377/time-complexity-of-string-slice
+[Updating a set while iterating over its elements]: https://stackoverflow.com/questions/48018680/updating-a-set-while-iterating-over-its-elements

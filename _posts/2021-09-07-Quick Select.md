@@ -1,23 +1,33 @@
 ---
-title: "Quickselect"
+title: "Quick Select"
 date: 2021-09-07
 categories:
   - blog
 tags:
   - algorithm
   - summary
+  - top Kth
+  - quick select
 ---
 
-1. [Quickselect (Hoare's selection algorithm)][Quickselect] to find the `k-th` something: kth smallest, kth largest, kth most frequent, kth less frequent, etc.
+1. The Problem: Find the top K-th elements in a list
+
+2. Solutions
+  1. Sort the whole list, return the first K elements: `O(NlogN)`
+  2. Use a size-K max heap: `O(NlogK)`, it can deal with real-time (stream) data
+  3. Quick Select: `O(N)` on average, `O(N^2)` worst case.
+
+
+3. [Quick Select (Hoare's selection algorithm)][Quickselect] to find the top `k-th` something: kth smallest, kth largest, kth most frequent, kth less frequent, etc.
     1. Average `O(n)` time complexity, `O(N^2)` in worst case
         * In the worst-case of constantly bad chosen pivots, the problem is not divided by half at each step, it becomes just one element less, that leads to `(N^2)` time complexity. It happens, for example, if at each step you choose the pivot not randomly, but take the rightmost element. For the random pivot choice the probability of having such a worst-case is negligibly small.
     2. First one chooses a random pivot, and finds its position in a sorted array in linear time using **partition algorithm**.
         * To implement partition one moves along an array, compares each element with a pivot, and moves all elements smaller than pivot to the left of the pivot.
         * Then we swap the pivot to its correct position
         * N.B. This is in-place select, As an output we have an array where pivot is on its perfect position in the ascending sorted array, all elements on the left of the pivot are smaller than pivot, and all elements on the right of the pivot are larger or equal to pivot. Importantly, This invariant is just for the **partition algorithm**, not for the final `find_kth_element` program, as the elements before or after the `k-th` one can still equal to the `k-th` element.
-        * 
+    3. The disadvatage of this solution are it is neither an online solution nor a stable one. And the K elements closest are not sorted in ascending order.
 
-    3. Code Template
+    4. Code Template
     ```
     def find_pivot_index(nums, left, right, random_idx):
         pivot = nums[random_idx]
@@ -36,7 +46,7 @@ tags:
         
     #You can also use iterative method instead of recursion method here
     #N.B. The k goes from 0, to n-1 here, k+1 is the normal meaning of k-th smallest in an array
-
+    
     def find_kth_element(nums, left, right, k):
         if left == right:
             return nums[left]
@@ -70,5 +80,10 @@ tags:
     ```    
 
 
+4. Problems
+    1. [LC973. K Closest Points to Origin][LC973. K Closest Points to Origin]
 
 [Quickselect]: https://leetcode.com/problems/kth-largest-element-in-an-array/solution/
+[LC973. K Closest Points to Origin]: https://leetcode.com/problems/k-closest-points-to-origin/
+
+

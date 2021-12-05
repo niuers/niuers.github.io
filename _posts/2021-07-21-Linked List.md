@@ -42,6 +42,9 @@ tags:
 
 8. [Circular Linked List][LC708. Insert into a Sorted Circular Linked List]
     * Try two pointers
+9. Reverse a linked list
+    * Insert the node one-by-one in the proper order for the reversed list
+    
 
 [LC142. Linked List Cycle II]: https://leetcode.com/problems/linked-list-cycle-ii/
 [LC147. Insertion Sort List]: https://leetcode.com/problems/insertion-sort-list/

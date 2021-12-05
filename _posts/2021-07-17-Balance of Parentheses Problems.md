@@ -37,20 +37,51 @@ tags:
               right += 1 if c == '(' else -1
       return left + right      
       ```
+      6. Scan the string left to right, then right to left
+        * When scan from right to left, note that we need reset the counts whenever left > right, similary when we scan from left to right, we reset the counts when right > left.
+        * There are only three cases for a string:
+          * '(' are more than ')'
+          * '(' are less than ')'
+          * '(' and ')' are the same
+          * Now, when you scan from left to right, you can only find the correct maxLength for cases 2 and 3, because if it is case 1, where '(' are more than ')' (e.g., "((()"), then left is always greater than right and maxLength does not have the chance to be updated.
+          * Similarly, when you scan from right to left, you can only find the maxLength for cases 1 and 3.
+          * Therefore, a two-pass scan covers all the cases and is guaranteed to find the correct maxLength
+
   2. Use stack:
       1. An interesting property about a valid parenthesis expression is that a sub-expression of a valid expression should also be a valid expression. (Not every sub-expression)
       2. Whenever we encounter a matching pair of parenthesis in the expression, we simply remove it from the expression, and since this is a valid expression, we would be left with an empty string in the end.
 
+4. [Count the number of invalid `(` and `)`][LC301. Remove Invalid Parentheses]
+  ```
+  left = 0
+  right = 0
+
+  # First, we find out the number of misplaced left and right parentheses.
+  for char in s:
+
+      # Simply record the left one.
+      if char == '(':
+          left += 1
+      elif char == ')':
+          # If we don't have a matching left, then this is a misplaced right, record it.
+          right = right + 1 if left == 0 else right
+
+          # Decrement count of left parentheses because we have found a right
+          # which CAN be a matching one for a left.
+          left = left - 1 if left > 0 else left  
+  ```
 
 
-4. Problems
+5. Problems
     1. [LC921. Minimum Add to Make Parentheses Valid][LC921. Minimum Add to Make Parentheses Valid]
+    2. [LC32. Longest Valid Parentheses][LC32. Longest Valid Parentheses]
     
-5. Resources
+6. Resources
 [LC921. Minimum Add to Make Parentheses Valid]: https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/
 [LC22. Generate Parentheses]: https://leetcode.com/problems/generate-parentheses/
 [LC921. Minimum Add to Make Parentheses Valid]: https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/
-
+[LC32. Longest Valid Parentheses]: https://leetcode.com/problems/longest-valid-parentheses/
+[LC301. Remove Invalid Parentheses]: https://leetcode.com/problems/remove-invalid-parentheses/
 
 
 

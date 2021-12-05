@@ -20,13 +20,13 @@ tags:
       # replace elements with gradually decreasing probability
       for i := k+1 to n
         # randomInteger(a, b) generates a uniform integer
-        #   from the inclusive range {a, ..., b} *)
+        #   from the inclusive range [a, ..., b])
         j := randomInteger(1, i)
         if j <= k
             R[j] := S[i]
     ```
     * Step 1: Store the first `k` elements.
-    * Step 2: Every time we see the `ith` element we select to keep it with `k/i` probability. If the element is selected then we randomly knock off any one of the already existing `k` elements in the storage uniformly (with probability `1/k`) and replace it with the selected element.
+    * Step 2: Every time we see the `i-th` element we select to keep it with `k/i` probability. If the element is selected then we randomly knock off any one of the already existing `k` elements in the storage uniformly (with probability `1/k`) and replace it with the selected element.
     * We can use induction to prove this
       * Given the current `i` numbers seen so far, assume that the probability of each number being in the buffer is `k/i`
       * Now we see the `(i+1)th` number, 
@@ -68,7 +68,8 @@ tags:
   3. Python built-in `random.shuffle(array)`, shuffles the array in-place, `O(n)`
 
 5. Sampling with weight
-  1. 
+  1. [LC528. Random Pick with Weight][LC528. Random Pick with Weight]
 
 [LC382. Linked List Random Node]: https://leetcode.com/problems/linked-list-random-node/
 [LC384. Shuffle an Array]: https://leetcode.com/problems/shuffle-an-array/
+[LC528. Random Pick with Weight]: https://leetcode.com/problems/random-pick-with-weight/

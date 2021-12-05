@@ -18,15 +18,12 @@ tags:
     * We know that the trace of the backtrack would form a n-ary tree. Therefore, the upper bound of the operations would be the total number of nodes in a full-blossom n-ary tree.
         * For example, In problem [425. Word Squares][LC425 Word Squares], at any node of the trace, at maximum it could have 26 branches (i.e. 26 alphabet letters). Therefore, the maximum number of nodes in a 26-ary tree would be approximately `26^L`, where `L` is the height of the tree.
         * To calculate a loose upper bound for the time complexity, let us consider it as a combination problem where the goal is to construct a sequence of a specific order, i.e. `|V_1V_2...V_n|`. For each position `V_i`, we could have `d` choices, i.e. at each airport one could have at most `d` possible destinations. Since the length of the sequence is `|E|`, the total number of combination would be `|E|^d`.
-d
- .
-
-
     * Don't forget to count the cost of processing just one of the combinations. For example, if you need loop an array to generate result for one combination, you need multiply `N` to the number of combinations computed above.
     * As we know, the maximal number of nodes in N-ary tree of height `h` would be `N^(h+1)`
     * You can also think of the total number of combinations for your result if it's suitable, that should be the upper bound for your backtrack.
         * While you  are doing this, don't forget the branches that don't end with the final leaves. For example, if you need pick `k` from `n` numbers which should satifying certain conditions. We shouldn't forget to count the combinations of `0`, `1`, `2`, .., `k-1` from `n`, which are the inner nodes in the combination tree. So we usually need to use the **sum of all nodes** to count the complexity.
-    * 
+    * In the execution graph (where common nodes are merged into one), we might visit certain nodes multiple times, but we visit each edge once and only once. Therefore, the time complexity of the algorithm is proportional to the number of edges. Then we need multiply the operations we have to do at each edge of the graph.
+    * An example of computing the time complexity in a recursive problem. [139. Word Break, Comment by HugoZh in Solution][Example Time Complexity]
 
 3. Backtracking Template
 ```
@@ -87,6 +84,8 @@ backtrack(0, path, results)
             * If we choose `2b` as our next number, our combination array becomes `[1, 2b]`, the rest of `k-2` numbers will be chosen from `[2c, 5]`. Notice this set of combinations is the same as the path (2) above given that `2a=2b`. So the set of combinations with `2b` is a subset of combinations when working with `2a`. By skipping `2b` in the same loop as `2a`, we ignore the same set of combinations that have been considered when working with `2a`.
         * The 3rd method is to generate a count of various numbers, and use that to search for valid combinations (reducing the count of a number by 1 when it's picked).
             * The use of a counter effectively remove the location differences of the same number. 
+            * N.B. We need convert the counts from dictionary to a list of tuples. In each call of backtrack, we have to move from current  index, otherwise, we'll have duplicates.
+                * For example, `[2,5,2,1,2]`, which counts to `{2:3, 5:1, 1:1}`. Once we have processed all `2`, we should skip it in future calls, otherwise, we'll have duplicate, e.g. when we process `1`, we'll get `[1,2,2]` which is the same as `[2,2,1]` when we processed `2` previously.
             * This ends up with the same set of combinations in the 2nd method above.
     4. Lexicographic (binary sorted) combinations
         * Think of mapping the set of numbers (`1,2,...,n`) to a binary number
@@ -169,3 +168,5 @@ backtrack(0, path, results)
 [LC90. Subsets II]: https://leetcode.com/problems/subsets-ii/
 [LC131. Palindrome Partitioning]: https://leetcode.com/problems/palindrome-partitioning/
 [LC254. Factor Combinations]: https://leetcode.com/problems/factor-combinations/
+[LC140. Word Break II]: https://leetcode.com/problems/word-break-ii/
+[Example Time Complexity]: https://leetcode.com/problems/word-break/solution/160312

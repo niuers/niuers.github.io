@@ -41,8 +41,12 @@ tags:
     ```
     my_arr = list(my_str)
     ```
-
-3. Binary/Hexidecimal numbers
+4. Generate a repeated string
+    ```
+    'H'*5   # 'HHHHH'
+    ```
+    
+4. Binary/Hexidecimal numbers
     1. Convert integer to binary/hexidecimal string
         * `bin(255)` # print out `0b11111111`
         * `hex(255)` # print out `0xff`
@@ -65,6 +69,14 @@ tags:
   print(s[3:-1:-1]) #[]
   print(s[3::-1]) #['d', 'c', 'b', 'a']
   ```
+  * Be careful when you use variable to denote the start and end points, if the end point ends up being less than zero, the returned slice is empty
+  ```
+  s= "eccer"
+  lo, hi = 0, 4
+  print(s[hi-1:lo-1:-1]) # lo-1= -1, this returns empty list
+  # Suppose we want to get the string from [lo,hi) in reverse order, following doesn't work
+  print(s[lo:hi], s[hi-1:lo:-1]) # `ecce` `ecc`
+  ```
 
 6. Don't use mutable type as default parameter value in Python
   ```  
@@ -84,18 +96,20 @@ tags:
   This is not a problem for immutable types, e.g. integer, float, tuple, string, range etc. 
 
 7. Python `split(sep=None, maxsplit=-1)` needs a separator to work properly
-    * If `sep` is given, consecutive delimiters are not grouped together and are deemed to delimit empty strings (for example, `'1,,2'.split(',')` returns `['1', '', '2']`). The `sep` argument may consist of multiple characters (for example, `'1<>2<>3'.split('<>')` returns `['1', '2', '3']`). Splitting an empty string with a specified separator returns `['']`.
+    * If `sep` is given, consecutive delimiters are not grouped together and are deemed to delimit empty strings (for example, `'1,,2'.split(',')` returns `['1', '', '2']`). The `sep` argument may consist of multiple characters (for example, `'1<>2<>3'.split('<>')` returns `['1', '2', '3']`). 
+    * Splitting an empty string with a specified separator returns `['']`.
 
     ```
     a = '12345'
     m = [int(k) for k in a.split()]
-    print(m) # print out [12345] since there's no whitespace, which is default if sep is not given
-    # Not the [1,2,3,4,5] as you might have thought
-
+    print(m)  # print out [12345] since there's no whitespace, which is default if sep is not given
     print(a.split(',')) #print out ['12345'] #No comma neither
+    # Not the [1,2,3,4,5] as you might have thought
+    # Use  m = list(a) instead
 
-    #Note there's an empty string at index 0 and the end
+    # The returned array size is the number of separators + 1, including the case when the string is empty (where you get an array of size 1, the only emlement is an empty string)    
     a = '/leet/code/'
+    #Note there's an empty string at index 0 and the end
     print(a.split('/')) # ['', 'leet', 'code', '']
 
     #Note the size is 2 here
@@ -105,6 +119,7 @@ tags:
     #Also compare following two cases
     a = '  a  '.split(' ') #each whitespace is treated separately
     print(len(a), a) # 5 ['', '', 'a', '', '']
+
     a = '  a  '.split() #whitespaces are consolidated and treated as one
     print(len(a), a) #1 ['a']
 
@@ -119,6 +134,19 @@ tags:
     print('   '.split())  # []
     ```
 
+8. `join` Python string: For a size N array, the returning string contains (N-1) separators
+    ```
+    # Join a single element list just returns that element
+    arr = [""]
+    s = '/'.join(arr) # s is empty string
+    arr = ["root"]
+    s = '/'.join(arr) # s = 'root'
+
+    arr = ["", ""]
+    s = '/'.join(arr) # s is string of length 1, s= '/'
+    arr = ["", "root", ""]
+    s = '/'.join(arr) # s = '/root/'
+    ```
 
 8. Unpack Python tuple/list
 ```
@@ -195,7 +223,7 @@ C = A.symmetric_difference(B)
 ```
 word = [1,2,3,4,5] #'abcde'
 print(word[:0]) # []
-print(word[4:]) # 5
+print(word[4:]) # [5]
 print(word[9:]) # []
 ```
 
@@ -287,4 +315,11 @@ output = int("".join(arr))
     ```
     s= "hello"
     s[0] = 'a' #TypeError: 'str' object does not support item assignment
+    ```    
+
+27. If you are asked to change a list in-place, e.g. the list is an argument, you have to modify the elements one by one, you can't do assignment in the function body, which won't make any change in the input list.
+    ```
+    def f(in_lst):
+        in_lst = in_lst[::-1]  #This doesn't modify the input list 'in_lst'
+        in_lst[0] = 5 #This is in-place modification
     ```    
