@@ -107,7 +107,7 @@ tags:
     # Not the [1,2,3,4,5] as you might have thought
     # Use  m = list(a) instead
 
-    # The returned array size is the number of separators + 1, including the case when the string is empty (where you get an array of size 1, the only emlement is an empty string)    
+    # The returned array size is "the number of separators + 1", including the case when the string is empty (where you get an array of size 1, the only emlement is an empty string)    
     a = '/leet/code/'
     #Note there's an empty string at index 0 and the end
     print(a.split('/')) # ['', 'leet', 'code', '']
