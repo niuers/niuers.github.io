@@ -26,7 +26,7 @@ tags:
             R[j] := S[i]
     ```
     * Step 1: Store the first `k` elements.
-    * Step 2: Every time we see the `i-th` element we select to keep it with `k/i` probability. If the element is selected then we randomly knock off any one of the already existing `k` elements in the storage uniformly (with probability `1/k`) and replace it with the selected element.
+    * Step 2: Every time we see the `i-th` element we select to use it with `k/i` probability. If so then we have randomly knocked off any one of (the `j-th` element) the already existing `k` elements in the storage uniformly (with probability `1/k`) and replace it with the selected element.
     * We can use induction to prove this
       * Given the current `i` numbers seen so far, assume that the probability of each number being in the buffer is `k/i`
       * Now we see the `(i+1)th` number, 
@@ -39,7 +39,7 @@ tags:
       * Firstly, the element needs to be chosen in the reservoir when we reach the element.
       * Secondly, in the following sampling, the element should remain in the reservoir, i.e. not to be replaced.
 
-
+  1. [Resources][Reservoir Sampling]
 
 
 2. Python `random`
@@ -73,3 +73,4 @@ tags:
 [LC382. Linked List Random Node]: https://leetcode.com/problems/linked-list-random-node/
 [LC384. Shuffle an Array]: https://leetcode.com/problems/shuffle-an-array/
 [LC528. Random Pick with Weight]: https://leetcode.com/problems/random-pick-with-weight/
+[Reservoir Sampling]: https://florian.github.io/reservoir-sampling/

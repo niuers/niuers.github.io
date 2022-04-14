@@ -10,6 +10,8 @@ tags:
   - summary
 ---
 
+0. Once you understand the concept of lower bound and upper bound, you will notice that in general, there are only two ways to code binary search: find lower bound or find upper bound.
+
 1. `bisect_left(a, x, lo=0, hi=len(a))`:
     1. If `x` is already present in `a`, the insertion point will be before (**to the left of**) any existing entries. The return value is suitable for use as the first parameter to `list.insert()` assuming that `a` is already sorted.
     2. The returned insertion point `i` partitions the array `a` into two halves so that `all(val < x for val in a[lo:i])` for the left side and `all(val >= x for val in a[i:hi])` for the right side.
@@ -21,6 +23,7 @@ def my_bisect_right(a, x, lo=0, hi=None, *, key=None):
         raise ValueError('lo must be non-negative')
     if hi is None:
         hi = len(a) #N.B. The last possible location is after the full array
+                    # Otherwise This doesn't work if there's only 1 element, and x == a[0]
     while lo < hi:
         mid = (lo + hi) // 2
         if a[mid] > x: #Find the lowest index k such that a[k] > x
@@ -33,7 +36,8 @@ def my_bisect_left(a, x, lo=0, hi=None, *, key=None):
     if lo < 0:
         raise ValueError('lo must be non-negative')
     if hi is None:
-        hi = len(a) #N.B. The last possible location is after the full array
+        hi = len(a) #N.B. The last possible location is after the full array, 
+                    # Otherwise This doesn't work when a=[2,2], and x = 3
     while lo < hi:
         mid = (lo + hi) // 2
         if a[mid] >= x: #Find the lowest index k, such that a[k] >= x
