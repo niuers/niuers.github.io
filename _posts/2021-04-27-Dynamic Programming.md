@@ -1,44 +1,82 @@
 ---
-title: "Parse Expressions"
+title: "Dynamic Programming"
 date: 2021-04-27
 categories:
   - blog
 tags:
   - algorithm
   - summary
+  - dynamic programming
 ---
 
-1. Dynamic Programming
-    1. Typically problems involving finding the "longest/shortest/largest/smallest/maximal" of something have the optimal-substructure.
-        * First, the question is asking for the maximum or minimum of something. 
-        * Second, we have to make decisions that may depend on previously made decisions, which is very typical of a problem involving subsequences.
-    2. [Split a sequence in an optimal way (LC1335)][Minimum Difficulty of a Job Schedule]:
-    3. Top-down DP: we apply laissez-faire strategy, i.e. we simply take a first step, while assuming the subsequent steps will figure out on their owns.
+1. [动态规划解题套路框架][动态规划解题套路框架]
+    1. 首先，动态规划问题的一般形式就是求最值. Example: 最长递增子序列呀，最小编辑距离    
+    2. 求解动态规划的核心问题是穷举。因为要求最值，肯定要把所有可行的答案穷举出来，然后在其中找最值
+        * 计算机解决问题其实没有任何奇技淫巧，它唯一的解决办法就是穷举，穷举所有可能性。算法设计无非就是先思考“如何穷举”，然后再追求“如何聪明地穷举”
+    3. 动态规划三要素
+        1. 这类问题存在「重叠子问题」，如果暴力穷举的话效率会极其低下，所以需要「备忘录」或者「DP table」来优化穷举过程，避免不必要的计算。
+            * 如何一眼看出重叠子问题?
+            * 首先，最简单粗暴的方式就是画图，把递归树画出来，看看有没有重复的节点。
+            * 但稍加思考就可以知道，其实根本没必要画图，可以通过递归框架直接判断是否存在重叠子问题: 
+                * 具体操作就是直接删掉代码细节，抽象出该解法的递归框架
+        2. 具备「最优子结构」, 才能通过子问题的最值得到原问题的最值. 要符合「最优子结构」，子问题间必须互相独立
+            * 遇到最优子结构失效情况 (子问题间不互相独立)，怎么办？策略是：改造问题.
+            * 最优子结构并不是动态规划独有的一种性质，能求最值的问题大部分都具有这个性质；但反过来，最优子结构性质作为动态规划问题的必要条件，一定是让你求最值的，以后碰到那种恶心人的最值题，思路往动态规划想就对了，这就是套路.
+            * 找最优子结构的过程，其实就是证明状态转移方程正确性的过程，方程符合最优子结构就可以写暴力解了，写出暴力解就可以看出有没有重叠子问题了，有则优化，无则 OK。这也是套路，经常刷题的读者应该能体会
+        3. 只有列出正确的「状态转移方程」(recurrence relation)，才能正确地穷举. 千万不要看不起暴力解，动态规划问题最困难的就是写出这个暴力解，即状态转移方程
+            * 明确 base case
+            * 明确「状态」，也就是原问题和子问题中会变化的变量
+            * 明确「选择」，也就是导致「状态」产生变化的行为
+            * 定义 dp 数组/函数的含义
+2. 动态规划解题套路
+    ```
+    # 初始化 base case
+    dp[0][0][...] = base
+    # 进行状态转移
+    for 状态1 in 状态1的所有取值：
+        for 状态2 in 状态2的所有取值：
+            for ...
+                dp[状态1][状态2][...] = 求最值(选择1，选择2...)
+    ```
 
+3. 动态规划的通用技巧：数学归纳思想
+    1. 如何找到动态规划的状态转移关系：
+        * 明确 dp 数组的定义。这一步对于任何动态规划问题都很重要，如果不得当或者不够清晰，会阻碍之后的步骤。
+        * 根据 dp 数组的定义，运用数学归纳法的思想，假设 dp[0...i-1] 都已知，想办法求出 dp[i]，一旦这一步完成，整个题目基本就解决了。
+        * 但如果无法完成这一步，很可能就是 dp 数组的定义不够恰当，需要重新定义 dp 数组的含义；或者可能是 dp 数组存储的信息还不够，不足以推出下一步的答案，需要把 dp 数组扩大成二维数组甚至三维数组。
 
+4. dp 数组的大小设置
+    * 理论上，你怎么定义都可以，只要根据定义处理好 base case 就可以。
 
+5. dp 数组的遍历方向
+    * 遍历的过程中，所需的状态必须是已经计算出来的。
+    * 遍历结束后，存储结果的那个位置必须已经被计算出来。
 
-2. How to realize that a problem is NOT a dynamic programming problem? 
+6. BASE CASE 和备忘录的初始值怎么定？
+    * 
+
+7. How to realize that a problem is NOT a dynamic programming problem? 
     1. [One way to realize that it isn't dynamic programming][LC1631. Path With Minimum Effort] is to notice that the hiker can go in all four directions. This means that a dp algorithm would need to look into subproblems that haven't been solved yet.
 
-3. [Ugly Number][LC264. Ugly Number II]
+8. Subsequence Type Problems
+    1. [Longest Increasing Subsequence (LIS, 最长递增子序列)][LC300. Longest Increasing Subsequence]
+        1. Build up the subsequence one by one: `O(n^2)`
+        2. Build up the subsequence using binary search, `O(nlogn)`
+    2. [LC354. Russian Doll Envelopes][LC354. Russian Doll Envelopes]
+
+9. Knapsack Type Problems
+    1. [LC416. Partition Equal Subset Sum][LC416. Partition Equal Subset Sum]
+
+10. Greedy Type Problems
+
+11. Game Type Problems
+4. [Ugly Number][LC264. Ugly Number II]
     1. Since any existed number will be multiplied by 2, 3 and 5 once and only once, otherwise duplicate, we can use a pointer to keep track of where the 2, 3 and 5 are going to multiply in the next step.
     2. Once, we find the next minimum, we can move on the corresponding pointer, otherwise it always stays at the already existed ugly number which would makes pointer useless
 
-4. A Framework to Solve Dynamic Programming Problems
-    1. A dynamic programming algorithm typically has 3 components
-        1. First, we need some function or array that represents the answer to the problem for a given state. 
-        2. Second, we need a way to transition between states, This is called a recurrence relation and figuring it out is usually the hardest part of solving a problem with dynamic programming.
-        3. The third component is establishing base cases. 
 
-5. [Longest increasing subsequence][LC300. Longest Increasing Subsequence]
-    1. dynamic programming: `O(n^2)`
-    2. build up the sequence one by one: `O(n^2)`
-        * If using binary search, `O(nlogn)`
+6. [Split a sequence in an optimal way (LC1335)][Minimum Difficulty of a Job Schedule]
 
-6. Knapsack Problems
-    1. Problems
-        * [LC416. Partition Equal Subset Sum][LC416. Partition Equal Subset Sum]
 
 7. [5 Steps to Think Through DP Problems][DP IS EASY! 5 Steps to Think Through DP Questions]
     0. DP Framework
@@ -113,3 +151,5 @@ tags:
 [LC494. Target Sum]: https://leetcode.com/problems/target-sum/
 [What-does-a-state-represent-in-terms-of-Dynamic-Programming]: www.quora.com/What-does-a-state-represent-in-terms-of-Dynamic-Programming
 [LC329. Longest Increasing Path in a Matrix]: https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+[动态规划解题套路框架]: https://labuladong.github.io/algo/3/23/68/
+[LC354. Russian Doll Envelopes]: https://leetcode.com/problems/russian-doll-envelopes/
