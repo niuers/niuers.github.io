@@ -171,3 +171,4 @@ backtrack(0, path, results)
 [LC139. Word Break]: https://leetcode.com/problems/word-break/
 [LC140. Word Break II]: https://leetcode.com/problems/word-break-ii/
 [Example Time Complexity]: https://leetcode.com/problems/word-break/solution/160312
+[回溯算法解题套路框架]: https://labuladong.github.io/algo/1/5/
