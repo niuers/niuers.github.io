@@ -8,22 +8,30 @@ tags:
   - summary
 ---
 
-1. When do we need to backtrack when do we not?
-    1. This is related to whether we need reset the value of an element once we finished visiting it.
-    2. If we just need go through the path once, e.g. check if the path goes to the destination, then we don't need reset the value. 
-    3. Examples
-        * combinations: [LC17. Letter Combinations of a Phone Number][LC17. Letter Combinations of a Phone Number]
-
-2. How to compute the time complexity of backtracking algorithm?
-    * We know that the trace of the backtrack would form a n-ary tree. Therefore, the upper bound of the operations would be the total number of nodes in a full-blossom n-ary tree.
-        * For example, In problem [425. Word Squares][LC425 Word Squares], at any node of the trace, at maximum it could have 26 branches (i.e. 26 alphabet letters). Therefore, the maximum number of nodes in a 26-ary tree would be approximately `26^L`, where `L` is the height of the tree.
-        * To calculate a loose upper bound for the time complexity, let us consider it as a combination problem where the goal is to construct a sequence of a specific order, i.e. `|V_1V_2...V_n|`. For each position `V_i`, we could have `d` choices, i.e. at each airport one could have at most `d` possible destinations. Since the length of the sequence is `|E|`, the total number of combination would be `|E|^d`.
-    * Don't forget to count the cost of processing just one of the combinations. For example, if you need loop an array to generate result for one combination, you need multiply `N` to the number of combinations computed above.
-    * As we know, the maximal number of nodes in N-ary tree of height `h` would be `N^(h+1)`
-    * You can also think of the total number of combinations for your result if it's suitable, that should be the upper bound for your backtrack.
-        * While you  are doing this, don't forget the branches that don't end with the final leaves. For example, if you need pick `k` from `n` numbers which should satifying certain conditions. We shouldn't forget to count the combinations of `0`, `1`, `2`, .., `k-1` from `n`, which are the inner nodes in the combination tree. So we usually need to use the **sum of all nodes** to count the complexity.
-    * In the execution graph (where common nodes are merged into one), we might visit certain nodes multiple times, but we visit each edge once and only once. Therefore, the time complexity of the algorithm is proportional to the number of edges. Then we need multiply the operations we have to do at each edge of the graph.
-    * An example of computing the time complexity in a recursive problem. [139. Word Break, Comment by HugoZh in Solution][Example Time Complexity]
+2. [回溯算法框架][回溯算法解题套路框架]    
+    1. 其实回溯算法其实就是我们常说的 `DFS` 算法，本质上就是一种暴力穷举算法。复杂度一般都很高。
+    2. 回溯算法就是个 `N` 叉树的前后序遍历问题，没有例外。解决一个回溯问题，实际上就是一个决策树的遍历过程。
+    3. 回溯树就是回溯算法的「决策树」, 因为你在每个节点上其实都在做决策。可以把「路径」和「选择」列表作为决策树上每个节点的属性. 站在回溯树的一个节点上，你只需要思考 `3` 个问题：
+        1. 路径：也就是已经做出的选择。
+        2. 选择列表：也就是你当前可以做的选择。
+        3. 结束条件：也就是到达决策树底层，无法再做选择的条件。
+    4. 回溯算法的框架
+    ```
+    result = []
+    
+    // 写 backtrack 函数 (其实就像一个指针) 时，在这棵树上游走, 需要维护走过的「路径」和当前可以做的「选择列表」，
+    // 当触发「结束条件」时，将「路径」记入结果集。
+    def backtrack(路径, 选择列表):
+        if 满足结束条件:
+            result.add(路径)
+            return
+        
+        for 选择 in 选择列表:
+            做选择 // 前序遍历需要的操作
+            backtrack(路径, 选择列表)
+            撤销选择 // 后序遍历需要的操作
+    ```
+    5. 某种程度上说，动态规划的暴力求解阶段就是回溯算法。只是有的问题具有重叠子问题性质，可以用 `dp table` 或者备忘录优化，将递归树大幅剪枝，这就变成了动态规划。
 
 3. Backtracking Template
 ```
@@ -60,6 +68,25 @@ def backtrack(curr_pos, path, results):
 path, results = [], []
 backtrack(0, path, results)
 ```
+
+
+1. When do we need to backtrack when do we not?
+    1. This is related to whether we need reset the value of an element once we finished visiting it.
+    2. If we just need go through the path once, e.g. check if the path goes to the destination, then we don't need reset the value. 
+    3. Examples
+        * combinations: [LC17. Letter Combinations of a Phone Number][LC17. Letter Combinations of a Phone Number]
+
+2. How to compute the time complexity of backtracking algorithm?
+    * We know that the trace of the backtrack would form a n-ary tree. Therefore, the upper bound of the operations would be the total number of nodes in a full-blossom n-ary tree.
+        * For example, In problem [425. Word Squares][LC425 Word Squares], at any node of the trace, at maximum it could have 26 branches (i.e. 26 alphabet letters). Therefore, the maximum number of nodes in a 26-ary tree would be approximately `26^L`, where `L` is the height of the tree.
+        * To calculate a loose upper bound for the time complexity, let us consider it as a combination problem where the goal is to construct a sequence of a specific order, i.e. `|V_1V_2...V_n|`. For each position `V_i`, we could have `d` choices, i.e. at each airport one could have at most `d` possible destinations. Since the length of the sequence is `|E|`, the total number of combination would be `|E|^d`.
+    * Don't forget to count the cost of processing just one of the combinations. For example, if you need loop an array to generate result for one combination, you need multiply `N` to the number of combinations computed above.
+    * As we know, the maximal number of nodes in N-ary tree of height `h` would be `N^(h+1)`
+    * You can also think of the total number of combinations for your result if it's suitable, that should be the upper bound for your backtrack.
+        * While you  are doing this, don't forget the branches that don't end with the final leaves. For example, if you need pick `k` from `n` numbers which should satifying certain conditions. We shouldn't forget to count the combinations of `0`, `1`, `2`, .., `k-1` from `n`, which are the inner nodes in the combination tree. So we usually need to use the **sum of all nodes** to count the complexity.
+    * In the execution graph (where common nodes are merged into one), we might visit certain nodes multiple times, but we visit each edge once and only once. Therefore, the time complexity of the algorithm is proportional to the number of edges. Then we need multiply the operations we have to do at each edge of the graph.
+    * An example of computing the time complexity in a recursive problem. [139. Word Break, Comment by HugoZh in Solution][Example Time Complexity]
+
 
 4. Here are a few notes about the above pseudocode.
     1. Overall, the enumeration of candidates is done in two levels: 
