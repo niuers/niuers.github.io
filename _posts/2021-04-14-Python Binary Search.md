@@ -70,7 +70,7 @@ def my_bisect_left(a, x, lo=0, hi=None, *, key=None):
         while left < right:
             mid = left + (right - left) // 2
             if condition(mid):
-                right = mid  #Think about bisect_right()
+                right = mid  #Think about bisect_right() 
             else:
                 left = mid + 1
         return left
@@ -115,3 +115,4 @@ Resources:
 [LC410. Split Array Largest Sum]: https://leetcode.com/problems/split-array-largest-sum/
 [Use Binary Search to find lower and upper bounds]: https://medium.com/swlh/binary-search-find-upper-and-lower-bound-3f07867d81fb
 [LC1891. Cutting Ribbons]: https://leetcode.com/problems/cutting-ribbons/
+[我写了首诗，让你闭着眼睛也能写对二分搜索]: https://labuladong.github.io/algo/1/10/

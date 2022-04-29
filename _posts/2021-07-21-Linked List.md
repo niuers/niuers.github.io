@@ -1,14 +1,44 @@
 ---
 title: "Linked List"
-date: 2021-07-21
+date: 2022-04-20
 categories:
   - blog
 tags:
   - algorithm
-  - leetcode
   - Linked List
   - summary
 ---
+
+1. [双指针技巧秒杀七道链表题目][双指针技巧秒杀七道链表题目]:
+    1. 合并两个有序链表
+    2. 合并 k 个有序链表
+    3. 单链表的倒数第 k 个节点
+    4. 单链表的中点
+    5. 判断链表是否包含环
+        * 如果链表中含有环，如何计算这个环的起点？
+    6. 两个链表是否相交
+    7. 对于单链表来说，大部分技巧都属于快慢指针
+
+2. [递归反转链表的一部分][递归反转链表的一部分]:
+    1. 递归的思想相对迭代思想，稍微有点难以理解，处理的技巧是：不要跳进递归，而是利用明确的定义来实现算法逻辑。
+        * 反转链表前 `N` 个节点
+    2. [92. Reverse Linked List II][92. Reverse Linked List II]
+    3. [206. Reverse Linked List][206. Reverse Linked List]
+3. [如何判断回文链表][如何判断回文链表]
+    1. 链表兼具递归结构，树结构不过是链表的衍生。那么，链表其实也可以有前序遍历和后序遍历
+    ```
+    void traverse(ListNode head) {
+        // 前序遍历代码
+        traverse(head.next);
+        // 后序遍历代码
+    }
+    ```
+    2. 核心逻辑是什么呢？实际上就是把链表节点放入一个栈，然后再拿出来，这时候元素顺序就是反的，只不过我们利用的是递归函数的堆栈而已
+    3. 优化空间复杂度
+        1. 先通过 双指针技巧 中的快慢指针来找到链表的中点
+        2. 如果fast指针没有指向null，说明链表长度为奇数，slow还要再前进一步
+        3. 从slow开始反转后面的链表，现在就可以开始比较回文串
+    4. [LC234. Palindrome Linked List][LC234. Palindrome Linked List]
 
 1. We can add an auxiliary "sentinel" node, which points to the list head. The "sentinel" node is used to simplify some corner cases such as a list with only one node, or removing the head of the list. In such case, you may return `sentinel.next` as new head in case the original `head` has been changed.
 
@@ -50,8 +80,14 @@ tags:
 [LC147. Insertion Sort List]: https://leetcode.com/problems/insertion-sort-list/
 [LC148. Sort List]: https://leetcode.com/problems/sort-list/
 [LC708. Insert into a Sorted Circular Linked List]: https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/
-
-
-    
-
+[LC21. Merge Two Sorted Lists]: https://leetcode.com/problems/merge-two-sorted-lists/
+[LC23. Merge k Sorted Lists]: https://leetcode.com/problems/merge-k-sorted-lists/
+[双指针技巧秒杀七道链表题目]: https://labuladong.github.io/algo/1/9/
+[LC19. Remove Nth Node From End of List]: https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+[LC876. Middle of the Linked List]: https://leetcode.com/problems/middle-of-the-linked-list/
+[递归反转链表的一部分]: https://labuladong.github.io/algo/2/17/17/
+[92. Reverse Linked List II]: https://leetcode.com/problems/reverse-linked-list-ii/
+[206. Reverse Linked List]: https://leetcode.com/problems/reverse-linked-list/
+[如何判断回文链表]: https://labuladong.github.io/algo/2/17/19/
+[LC234. Palindrome Linked List]: https://leetcode.com/problems/palindrome-linked-list/
 

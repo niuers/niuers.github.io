@@ -26,7 +26,7 @@ tags:
         * 最优子结构并不是动态规划独有的一种性质，能求最值的问题大部分都具有这个性质；但反过来，最优子结构性质作为动态规划问题的必要条件，一定是让你求最值的，以后碰到那种恶心人的最值题，思路往动态规划想就对了，这就是套路.
         * 找最优子结构的过程，其实就是证明状态转移方程正确性的过程，方程符合最优子结构就可以写暴力解了，写出暴力解就可以看出有没有重叠子问题了，有则优化，无则 OK。这也是套路，经常刷题的读者应该能体会
     3. 只有列出正确的「状态转移方程」(recurrence relation)，才能正确地穷举. 千万不要看不起暴力解，动态规划问题最困难的就是写出这个暴力解，即状态转移方程
-        * 明确 base case
+        * 明确 base case        
         * 明确「状态」，也就是原问题和子问题中会变化的变量
         * 明确「选择」，也就是导致「状态」产生变化的行为
         * 定义 dp 数组/函数的含义
@@ -66,23 +66,53 @@ tags:
     2. 这个问题可以转化为一个子集划分问题，而子集划分问题又是一个典型的背包问题
 
 9. Subsequence Type Problems
+    0. 我总结出来做算法题的技巧就是，把大的问题细化到一个点，先研究在这个小的点上如何解决问题，然后再通过递归/迭代的方式扩展到整个问题。
     1. [Longest Increasing Subsequence (LIS, 最长递增子序列)][LC300. Longest Increasing Subsequence]
         1. Build up the subsequence one by one: `O(n^2)`
         2. Build up the subsequence using binary search, `O(nlogn)`
     2. [LC354. Russian Doll Envelopes][LC354. Russian Doll Envelopes]
+    3. [LC72. Edit Distance][LC72. Edit Distance]
+        1. 一般来说，处理两个字符串的动态规划问题，都是建立 DP table。
+        2. 这里只求出了最小的编辑距离，那具体的操作是什么？
+            * 给 dp 数组增加额外的信息即可. val 属性就是之前的 dp 数组的数值，choice 属性代表操作。在做最优选择时，顺便把操作记录下来，然后就从结果反推具体操作。
+            ```
+            // int[][] dp;
+            Node[][] dp;
 
+            class Node {
+                int val;
+                int choice;
+                // 0 代表啥都不做
+                // 1 代表插入
+                // 2 代表删除
+                // 3 代表替换
+            }
+            ```
+    4. [LC53. Maximum Subarray][LC53. Maximum Subarray]
+        1. 这道题还不能用滑动窗口算法，因为数组中的数字可以是负数。
+    5. [LC1143. Longest Common Subsequence][LC1143. Longest Common Subsequence]
+        1. 
 
 10. Knapsack Type Problems
-    1. [LC416. Partition Equal Subset Sum][LC416. Partition Equal Subset Sum]
+    1. 子集背包问题: [LC416. Partition Equal Subset Sum][LC416. Partition Equal Subset Sum]
+    2. 完全背包问题: [LC518. Coin Change 2][518. Coin Change 2]
 
 10. Greedy Type Problems
 
 11. Game Type Problems
+    1. [LC174. Dungeon Game][LC174. Dungeon Game]
+    2. [514. Freedom Trail][514. Freedom Trail]
 
-4. [Ugly Number][LC264. Ugly Number II]
+12. [Best Time to Buy and Sell Stock][Most consistent ways of dealing with the series of stock problems]
+
+13. [Ugly Number][LC264. Ugly Number II]
     1. Since any existed number will be multiplied by 2, 3 and 5 once and only once, otherwise duplicate, we can use a pointer to keep track of where the 2, 3 and 5 are going to multiply in the next step.
     2. Once, we find the next minimum, we can move on the corresponding pointer, otherwise it always stays at the already existed ugly number which would makes pointer useless
 
+14. 动态规划之最小路径和
+    1. 一般来说，让你在二维矩阵中求最优化问题（最大值或者最小值），肯定需要递归 + 备忘录，也就是动态规划技巧。
+    2. [LC64. Minimum Path Sum][LC64. Minimum Path Sum]
+    
 
 6. [Split a sequence in an optimal way (LC1335)][Minimum Difficulty of a Job Schedule]
 
@@ -162,3 +192,13 @@ tags:
 [LC329. Longest Increasing Path in a Matrix]: https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
 [动态规划解题套路框架]: https://labuladong.github.io/algo/3/23/68/
 [LC354. Russian Doll Envelopes]: https://leetcode.com/problems/russian-doll-envelopes/
+[LC72. Edit Distance]: https://leetcode.com/problems/edit-distance/
+[LC53. Maximum Subarray]: https://leetcode.com/problems/maximum-subarray/
+[LC1143. Longest Common Subsequence]: https://leetcode.com/problems/longest-common-subsequence/
+[经典动态规划：0-1 背包问题]: https://labuladong.github.io/algo/3/25/82/
+[LC518. Coin Change 2]: https://leetcode.com/problems/coin-change-2/
+[一个方法团灭 LEETCODE 股票买卖问题]: https://labuladong.github.io/algo/1/12/
+[Most consistent ways of dealing with the series of stock problems]: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/discuss/108870/Most-consistent-ways-of-dealing-with-the-series-of-stock-problems
+[LC64. Minimum Path Sum]: https://leetcode.com/problems/minimum-path-sum/
+[LC174. Dungeon Game]: https://leetcode.com/problems/dungeon-game/
+[514. Freedom Trail]: https://leetcode.com/problems/freedom-trail/

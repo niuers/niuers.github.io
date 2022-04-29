@@ -14,7 +14,7 @@ tags:
     2. Related problems:
         * [LC503 Next Greater Element II][LC503. Next Greater Element II]
 
-2. Two-Sums/Three-Sums
+2. Two-Sums/Three-Sums/nSums
     1. Two Sums: Use hash table to check on the difference. `O(n)`
     2. Two Sums with sorted array: Use two pointers. `O(n)`
     3. Two Sum less than K: You can sort the array first and use two pointers (`O(nlogn)`). If the range of values in the input array `m` is small, you use count sort, the time complexity can be reduced to `O(n+m)`.
@@ -25,7 +25,7 @@ tags:
         1. sort the array first, then use two pointer to achieve `O(n^2)` solution
         2. Use binary search by fixing first two numbers and search for the third number `O(n^2logn)`
     5. 4Sum and kSum
-        1. We can use recursion for kSum problems.
+        1. We can use recursion for kSum problems. `n == 2` 时是 `twoSum` 的双指针解法，`n > 2` 时就是穷举第一个数字，然后递归调用计算 `(n-1)Sum`，组装答案。需要注意的是，调用这个 `nSum` 函数之前一定要先给 `nums` 数组排序，因为 `nSum` 是一个递归函数，如果在 `nSum` 函数里调用排序函数，那么每次递归都会进行没有必要的排序，效率会非常低。
         2. In the case that the sum equals to target value, we can move just one side, e.g. left pointer and check for duplicate while moving it. We don't have to move both left, right pointers at the same time here.
     6. Maximum Size Subarray Sum Equals k
         1. If we look at the prefix sum, a subarray that sums to `k` is equivalent to the subtraction of two prefix sums equals to `k`. If we pre-compute the prefix sum, we can use the concept of two sums (hash set) to find out the index where prefix sum subtracts to `k`
