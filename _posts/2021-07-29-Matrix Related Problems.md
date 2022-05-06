@@ -21,6 +21,7 @@ tags:
             * You can initialize `direction_x, direction_y = 0,1`, and turn right use `direction_x, direction_y = direction_y, -direction_x`
     2. Do it layer-by-layer: We define the `k-th` outer layer of a matrix as all elements that have minimum distance to some border equal to `k`. Then you can use the top-left and bottom-right coordinates to specify the layer.
         * We can observe that, for any given `n`, the total number of layers is given by : `⌊(n+1)/2⌋`. This works for both even and odd `n`.
+    3. 解题的核心思路是按照右、下、左、上的顺序遍历数组，并使用四个变量圈定未遍历元素的边界. 随着螺旋遍历，相应的边界会收缩，直到螺旋遍历完整个数组
 
 
 3. Matrix sorted in both rows and columns
@@ -51,6 +52,7 @@ tags:
 [LC59. Spiral Matrix II]: https://leetcode.com/problems/spiral-matrix-ii/
 [LC240. Search a 2D Matrix II]: https://leetcode.com/problems/search-a-2d-matrix-ii/
 [LC378. Kth Smallest Element in a Sorted Matrix]: https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
+[二维数组的花式遍历技巧]: https://labuladong.github.io/algo/2/18/24/
 
 
 

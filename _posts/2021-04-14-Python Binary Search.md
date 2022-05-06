@@ -101,6 +101,29 @@ def my_bisect_left(a, x, lo=0, hi=None, *, key=None):
     2. If we select the first one using `int(lo+(hi-lo)/2)`, we want to make sure to avoid setting `lo = mid` because that might lead to infinite loop.
     3. Similarly, if we select the second one, we want to avoid setting `hi=mid`
 
+9. 在具体的算法问题中，常用到的是「搜索左侧边界」和「搜索右侧边界」这两种场景，很少有让你单独「搜索一个元素」。
+    1. 因为算法题一般都让你求最值，比如让你求吃香蕉的「最小速度」，让你求轮船的「最低运载能力」，求最值的过程，必然是搜索一个边界的过程。
+    2. 什么问题可以运用二分搜索算法技巧？
+        1. 首先，你要从题目中抽象出一个自变量 x，一个关于 x 的函数 f(x)，以及一个目标值 target。
+        2. 同时，x, f(x), target 还要满足以下条件：
+            * f(x) 必须是在 x 上的单调函数（单调增单调减都可以）。
+            * 题目是让你计算满足约束条件 f(x) == target 时的 x 的值。
+        3. 来举个具体的例子：给你一个升序排列的有序数组 nums 以及一个目标元素 target，请你计算 target 在数组中的索引位置，如果有多个目标元素，返回最小的索引。
+        ```
+        // 函数 f(x) 是关于自变量 x 的单调递增函数
+        // 入参 nums 是不会改变的，所以可以忽略，不算自变量
+        int f(int x, int[] nums) {
+            return nums[x];
+        }
+        ```
+        4. 其实这个函数 f 就是在访问数组 nums，因为题目给我们的数组 nums 是升序排列的，所以函数 f(x) 就是在 x 上单调递增的函数。计算元素 target 的最左侧索引？是不是就相当于在问我们「满足 f(x) == target 的 x 的最小值是多少」？
+
+
+
+
+
+
+
 
 Resources:
 * [827. Making A Large Island][LeetCode Link]
@@ -116,3 +139,4 @@ Resources:
 [Use Binary Search to find lower and upper bounds]: https://medium.com/swlh/binary-search-find-upper-and-lower-bound-3f07867d81fb
 [LC1891. Cutting Ribbons]: https://leetcode.com/problems/cutting-ribbons/
 [我写了首诗，让你闭着眼睛也能写对二分搜索]: https://labuladong.github.io/algo/1/10/
+[二分搜索怎么用？我又总结了套路]: https://labuladong.github.io/algo/2/18/28/
