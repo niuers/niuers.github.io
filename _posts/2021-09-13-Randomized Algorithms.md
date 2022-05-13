@@ -70,7 +70,45 @@ tags:
 5. Sampling with weight
   1. [LC528. Random Pick with Weight][LC528. Random Pick with Weight]
 
+6. 洗牌算法
+  1. 分析洗牌算法正确性的准则：产生的结果必须有 n! 种可能，否则就是错误的。
+  ```
+  // 得到一个在闭区间 [min, max] 内的随机整数
+  int randInt(int min, int max);
+
+  // 第一种写法
+  void shuffle(int[] arr) {
+      int n = arr.length();
+      /******** 区别只有这两行 ********/
+      for (int i = 0 ; i < n; i++) {
+          // 从 i 到最后随机选一个元素
+          int rand = randInt(i, n - 1);
+          /*************************/
+          swap(arr[i], arr[rand]);
+      }
+  }
+
+  // 第二种写法
+      for (int i = 0 ; i < n - 1; i++)
+          int rand = randInt(i, n - 1);
+
+  // 第三种写法
+      for (int i = n - 1 ; i >= 0; i--)
+          int rand = randInt(0, i);
+
+  // 第四种写法
+      for (int i = n - 1 ; i > 0; i--)
+          int rand = randInt(0, i);
+
+  ```
+
+2. 蒙特卡罗方法验证正确性
+  1. 随机乱置算法的正确性衡量标准是：对于每种可能的结果出现的概率必须相等，也就是说要足够随机。
+  2. 第一种思路，我们把数组 arr 的所有排列组合都列举出来，做成一个直方图（假设 arr = {1,2,3}）, 每次进行洗牌算法后，就把得到的打乱结果对应的频数加一，重复进行 100 万次，如果每种结果出现的总次数差不多，那就说明每种结果出现的概率应该是相等的。
+  3. 第二种思路，可以这样想，arr 数组中全都是 0，只有一个 1。我们对 arr 进行 100 万次打乱，记录每个索引位置出现 1 的次数，如果每个索引出现 1 的次数差不多，也可以说明每种打乱结果的概率是相等的。
+
 [LC382. Linked List Random Node]: https://leetcode.com/problems/linked-list-random-node/
 [LC384. Shuffle an Array]: https://leetcode.com/problems/shuffle-an-array/
 [LC528. Random Pick with Weight]: https://leetcode.com/problems/random-pick-with-weight/
 [Reservoir Sampling]: https://florian.github.io/reservoir-sampling/
+[洗牌算法详解]: 
